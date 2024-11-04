@@ -4,7 +4,8 @@ import { getArticleById } from "../services/api";
 import Header from "./Header";
 import ArticleHeader from "./ArticleHeader";
 import ArticleFooter from "./ArticleFooter";
-import CommentsList from "./CommentsList";
+import LoadingDisplay from "./LoadingDisplay";
+import ErrorDisplay from "./ErrorDisplay";
 
 const Article = () => {
   const { article_id } = useParams();
@@ -22,13 +23,16 @@ const Article = () => {
       .finally(setIsLoading(false));
   }, []);
 
+  if (isLoading) return <LoadingDisplay />;
+  if (isError) return <ErrorDisplay />;
+
   return (
     <>
       <Header />
       <main className="mx-20">
         <section>
           <ArticleHeader article={article} />
-          <article className="my-4">
+          <article className="m-4">
             <p className="leading-relaxed">{article.body}</p>
           </article>
           <ArticleFooter article={article} />
