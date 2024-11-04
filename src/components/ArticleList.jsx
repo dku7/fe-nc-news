@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../services/api";
-import Loader from "./Loader";
+import LoadingDisplay from "./LoadingDisplay";
 import ErrorDisplay from "./ErrorDisplay";
 import ArticleCard from "./ArticleCard";
 
@@ -10,13 +10,16 @@ const ArticleList = () => {
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
+    setIsError(false);
+
     getArticles()
       .then((articles) => setArticles(articles))
       .catch(() => setIsError(true))
       .finally(setIsLoading(false));
   }, []);
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <LoadingDisplay />;
   if (isError) return <ErrorDisplay />;
 
   return (
