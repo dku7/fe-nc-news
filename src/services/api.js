@@ -9,3 +9,8 @@ export const getArticles = () =>
   apiClient
     .get("/api/articles?limit=1000")
     .then((response) => response.data.articles);
+
+export const getArticleById = (article_id) =>
+  apiClient
+    .get(`/api/articles/${article_id}`)
+    .then((response) => response.data.article);
