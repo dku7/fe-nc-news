@@ -29,7 +29,7 @@ const Article = () => {
   return (
     <>
       <Header />
-      <main className="mx-20">
+      <main className="mx-10 md:mx-28 lg:mx-96">
         <section>
           <ArticleHeader article={article} />
           <article className="m-4">
