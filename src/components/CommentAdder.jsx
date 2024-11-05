@@ -19,7 +19,7 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
   const [isPostingEnabled, setIsPostingEnabled] = useState(false);
 
   const handleCommentChange = (event) => {
-    const newComment = event.target.value.trim();
+    const newComment = event.target.value;
 
     setComment(newComment);
     setIsPostingEnabled(newComment);
