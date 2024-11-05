@@ -1,7 +1,7 @@
 import { formatDateTime } from "../utils/utils";
 
 const ArticleHeader = ({ article }) => (
-  <div className="m-4">
+  <div>
     <img className="object-cover w-full" src={article.article_img_url} />
 
     <header>

@@ -19,3 +19,8 @@ export const getArticleComments = (article_id) =>
   apiClient
     .get(`/api/articles/${article_id}/comments`)
     .then((response) => response.data.comments);
+
+export const patchArticleVotes = (article_id, amount) =>
+  apiClient
+    .patch(`/api/articles/${article_id}`, { inc_votes: amount })
+    .then((response) => response.data.updatedArticle);

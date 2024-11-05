@@ -31,15 +31,15 @@ const Article = () => {
     <>
       <Header />
       <main className="mx-10 md:mx-28 lg:mx-72">
-        <section className="mb-10">
+        <section className="mb-10 px-4">
           <ArticleHeader article={article} />
-          <article className="m-4">
+          <article className="py-4">
             <p className="leading-relaxed">{article.body}</p>
           </article>
-          <ArticleFooter article={article} />
+          <ArticleFooter article={article} votingEnabled={true} />
         </section>
         <hr />
-        <section className="m-4">
+        <section>
           <CommentsList article_id={article_id} />
         </section>
       </main>
