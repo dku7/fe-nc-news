@@ -16,8 +16,14 @@ const CommentAdder = () => {
   const { loggedInUser } = useContext(LoggedInUserContext);
   const [comment, setComment] = useState("");
   const [commentStatus, setCommentStatus] = useState("");
+  const [isPostingEnabled, setIsPostingEnabled] = useState(false);
 
-  const handleCommentChange = (event) => setComment(event.target.value);
+  const handleCommentChange = (event) => {
+    const newComment = event.target.value;
+
+    setComment(newComment);
+    setIsPostingEnabled(newComment);
+  };
   const submitComment = (event) => {
     event.preventDefault();
     setCommentStatus(COMMENT_STATUS_POST_IN_PROGRESS);
@@ -35,9 +41,11 @@ const CommentAdder = () => {
           onChange={handleCommentChange}
         />
         <button
-          className={comment ? ENABLED_BUTTON_CLASS : DISABLED_BUTTON_CLASS}
+          className={
+            isPostingEnabled ? ENABLED_BUTTON_CLASS : DISABLED_BUTTON_CLASS
+          }
           type="submit"
-          disabled={!comment}>
+          disabled={!isPostingEnabled}>
           Add
         </button>
       </form>
