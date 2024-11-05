@@ -1,7 +1,7 @@
 const ArticleFooter = ({ article }) => (
-  <div className="m-4">
-    <span className="pr-4">votes: {article.votes}</span>
-    <span>comments: {article.comment_count}</span>
+  <div className="m-4 font-light">
+    <span className="pr-8">{article.votes} votes</span>
+    <span>{article.comment_count} comments</span>
   </div>
 );
 
