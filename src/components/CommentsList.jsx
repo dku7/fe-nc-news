@@ -3,6 +3,7 @@ import { getArticleComments } from "../services/api";
 import CommentCard from "./CommentCard";
 import LoadingDisplay from "./LoadingDisplay";
 import ErrorDisplay from "./ErrorDisplay";
+import CommentAdder from "./CommentAdder";
 
 const CommentsList = ({ article_id }) => {
   const [comments, setComments] = useState([]);
@@ -21,9 +22,16 @@ const CommentsList = ({ article_id }) => {
 
   return (
     <section className="mt-10">
-      <header className="mb-10">
+      <header className="mb-4">
         <h2 className="text-xl font-bold">Comments</h2>
       </header>
+
+      <div className="mb-10">
+        <CommentAdder
+          article_id={article_id}
+          updateCommentsList={setComments}
+        />
+      </div>
 
       {isLoading && <LoadingDisplay />}
       {isError && <ErrorDisplay />}
