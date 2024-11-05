@@ -32,3 +32,6 @@ export const postNewComment = (article_id, comment, username) =>
       author: username,
     })
     .then((response) => response.data.newComment);
+
+export const deleteComment = (comment_id) =>
+  apiClient.delete(`/api/comments/${comment_id}`).then((response) => response);

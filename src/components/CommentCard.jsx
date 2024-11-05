@@ -1,13 +1,14 @@
 import { formatDateTime } from "../utils/utils";
+import CommentFooter from "./CommentFooter";
 
-const CommentCard = ({ comment }) => (
+const CommentCard = ({ comment, updateCommentsList }) => (
   <div className="mb-10">
     <div className="font-semibold mb-2">
       <span className="pr-4">{comment.author}</span>
       <span>{formatDateTime(comment.created_at)}</span>
     </div>
     <div className="mb-2 text-gray-900">{comment.body}</div>
-    <div>votes: {comment.votes}</div>
+    <CommentFooter comment={comment} updateCommentsList={updateCommentsList} />
   </div>
 );
 

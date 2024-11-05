@@ -12,3 +12,10 @@ export const COMMENT_STATUS_POST_SUCCESSFUL =
   "Thank you for leaving your comment.";
 export const COMMENT_STATUS_POST_UNSUCCESSFUL =
   "Sorry, your comment could not added. Please try again.";
+
+// deleting comments
+export const COMMENT_STATUS_DELETE_IN_PROGRESS = "Deleting...";
+export const COMMENT_STATUS_DELETE_SUCCESSFUL =
+  "Your comment has been deleted.";
+export const COMMENT_STATUS_DELETE_UNSUCCESSFUL =
+  "Sorry, your comment could not be deleted. Please try again.";
