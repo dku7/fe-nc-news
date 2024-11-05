@@ -29,6 +29,7 @@ const CommentsList = ({ article_id }) => {
       <div className="mb-10">
         <CommentAdder />
       </div>
+
       {isLoading && <LoadingDisplay />}
       {isError && <ErrorDisplay />}
 
