@@ -3,6 +3,7 @@ import { getArticles } from "../services/api";
 import LoadingDisplay from "./LoadingDisplay";
 import ErrorDisplay from "./ErrorDisplay";
 import ArticleCard from "./ArticleCard";
+import ArticleSorter from "./ArticleSorter";
 
 const ArticleList = ({ searchParams }) => {
   const DEFAULT_LIMIT = 1000;
@@ -31,18 +32,21 @@ const ArticleList = ({ searchParams }) => {
   if (isError) return <ErrorDisplay />;
 
   return (
-    <main>
-      <header>
-        <h2 className="text-3xl font-semibold m-5 capitalize">
-          {topic ? topic : "All articles"}
-        </h2>
-      </header>
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-        {articles.map((article) => (
-          <ArticleCard key={article.article_id} article={article} />
-        ))}
-      </div>
-    </main>
+    <div class="m-5">
+      <main>
+        <header>
+          <h2 className="text-3xl font-semibold capitalize">
+            {topic ? topic : "All articles"}
+          </h2>
+        </header>
+        <ArticleSorter />
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+          {articles.map((article) => (
+            <ArticleCard key={article.article_id} article={article} />
+          ))}
+        </div>
+      </main>
+    </div>
   );
 };
 
