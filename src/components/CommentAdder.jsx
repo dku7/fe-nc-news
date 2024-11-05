@@ -5,11 +5,11 @@ import {
   COMMENT_STATUS_POST_SUCCESSFUL,
   COMMENT_STATUS_POST_UNSUCCESSFUL,
 } from "../utils/constants";
+import { postNewComment } from "../services/api";
 
-const CommentAdder = () => {
+const CommentAdder = ({ article_id, updateCommentsList }) => {
   const DISABLED_BUTTON_CLASS =
     "border rounded px-4 bg-gray-100 text-gray-800 mb-2";
-
   const ENABLED_BUTTON_CLASS =
     "border rounded px-4 bg-gray-800 text-white mb-2";
 
@@ -19,7 +19,7 @@ const CommentAdder = () => {
   const [isPostingEnabled, setIsPostingEnabled] = useState(false);
 
   const handleCommentChange = (event) => {
-    const newComment = event.target.value;
+    const newComment = event.target.value.trim();
 
     setComment(newComment);
     setIsPostingEnabled(newComment);
@@ -27,6 +27,14 @@ const CommentAdder = () => {
   const submitComment = (event) => {
     event.preventDefault();
     setCommentStatus(COMMENT_STATUS_POST_IN_PROGRESS);
+
+    postNewComment(article_id, comment, loggedInUser)
+      .then((newComment) => {
+        updateCommentsList((currentList) => [newComment, ...currentList]);
+
+        setCommentStatus(COMMENT_STATUS_POST_SUCCESSFUL);
+      })
+      .catch(COMMENT_STATUS_POST_UNSUCCESSFUL);
   };
 
   return (

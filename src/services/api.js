@@ -24,3 +24,11 @@ export const patchArticleVotes = (article_id, amount) =>
   apiClient
     .patch(`/api/articles/${article_id}`, { inc_votes: amount })
     .then((response) => response.data.updatedArticle);
+
+export const postNewComment = (article_id, comment, username) =>
+  apiClient
+    .post(`/api/articles/${article_id}/comments`, {
+      body: comment,
+      author: username,
+    })
+    .then((response) => response.data.newComment);

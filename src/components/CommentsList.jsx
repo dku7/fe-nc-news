@@ -27,7 +27,10 @@ const CommentsList = ({ article_id }) => {
       </header>
 
       <div className="mb-10">
-        <CommentAdder />
+        <CommentAdder
+          article_id={article_id}
+          updateCommentsList={setComments}
+        />
       </div>
 
       {isLoading && <LoadingDisplay />}
