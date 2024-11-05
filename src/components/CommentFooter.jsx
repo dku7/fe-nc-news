@@ -6,14 +6,30 @@ import {
   COMMENT_STATUS_DELETE_SUCCESSFUL,
   COMMENT_STATUS_DELETE_UNSUCCESSFUL,
 } from "../utils/constants";
+import { deleteComment } from "../services/api";
 
-const CommentFooter = ({ comment }) => {
+const CommentFooter = ({ comment, updateCommentsList }) => {
   const { loggedInUser } = useContext(LoggedInUserContext);
   const [deleteStatus, setDeleteStatus] = useState("");
   const [isDeleteEnabled, setIsDeleteEnabled] = useState(true);
 
   const handleDeleteComment = () => {
     setDeleteStatus(COMMENT_STATUS_DELETE_IN_PROGRESS);
+    setIsDeleteEnabled(false);
+
+    deleteComment(comment.comment_id)
+      .then(() => {
+        updateCommentsList((currentList) =>
+          currentList.filter(
+            (listComment) => listComment.comment_id !== comment.comment_id
+          )
+        );
+        setDeleteStatus(COMMENT_STATUS_DELETE_SUCCESSFUL);
+      })
+      .catch(() => {
+        setDeleteStatus(COMMENT_STATUS_DELETE_UNSUCCESSFUL);
+        setIsDeleteEnabled(true);
+      });
   };
 
   const showDeleteButton = () => (
