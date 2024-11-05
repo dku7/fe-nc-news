@@ -5,9 +5,9 @@ const apiClient = axios.create({
   timeout: 1000,
 });
 
-export const getArticles = () =>
+export const getArticles = (queryParams) =>
   apiClient
-    .get("/api/articles?limit=1000")
+    .get("/api/articles", { params: { ...queryParams } })
     .then((response) => response.data.articles);
 
 export const getArticleById = (article_id) =>
@@ -35,3 +35,6 @@ export const postNewComment = (article_id, comment, username) =>
 
 export const deleteComment = (comment_id) =>
   apiClient.delete(`/api/comments/${comment_id}`).then((response) => response);
+
+export const getTopics = () =>
+  apiClient.get("/api/topics").then((response) => response.data.topics);
