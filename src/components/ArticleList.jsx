@@ -4,6 +4,7 @@ import LoadingDisplay from "./LoadingDisplay";
 import ErrorDisplay from "./ErrorDisplay";
 import ArticleCard from "./ArticleCard";
 import ArticleSorter from "./ArticleSorter";
+import { QUERY_PARAM_SORT_BY, QUERY_PARAM_ORDER } from "../utils/constants";
 
 const ArticleList = ({ searchParams, setSearchParams }) => {
   const DEFAULT_LIMIT = 1000;
@@ -13,9 +14,9 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
   const [isError, setIsError] = useState(false);
   const [topic, setTopic] = useState("");
 
-  const handleSortByChange = (sortBy) => {
+  const handleSortChange = (param, value) => {
     const newParams = new URLSearchParams(searchParams);
-    newParams.set("sort_by", sortBy);
+    newParams.set(param, value);
 
     setSearchParams(newParams);
   };
@@ -25,7 +26,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
     setIsError(false);
 
     const queryTopic = searchParams.get("topic");
-    const querySortBy = searchParams.get("sort_by");
+    const querySortBy = searchParams.get(QUERY_PARAM_SORT_BY);
 
     const queryParams = {
       topic: queryTopic,
@@ -53,7 +54,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
           </h2>
         </header>
         <div className="my-4">
-          <ArticleSorter handleSortByChange={handleSortByChange} />
+          <ArticleSorter handleSortChange={handleSortChange} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
           {articles.map((article) => (
