@@ -30,7 +30,7 @@ const CommentsList = ({ article_id }) => {
 
       <div>
         {comments.map((comment) => (
-          <CommentCard comment={comment} />
+          <CommentCard key={comment.comment_id} comment={comment} />
         ))}
       </div>
     </section>
