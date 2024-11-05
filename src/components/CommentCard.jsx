@@ -1,4 +1,5 @@
 import { formatDateTime } from "../utils/utils";
+import CommentFooter from "./CommentFooter";
 
 const CommentCard = ({ comment }) => (
   <div className="mb-10">
@@ -7,7 +8,7 @@ const CommentCard = ({ comment }) => (
       <span>{formatDateTime(comment.created_at)}</span>
     </div>
     <div className="mb-2 text-gray-900">{comment.body}</div>
-    <div>votes: {comment.votes}</div>
+    <CommentFooter comment={comment} />
   </div>
 );
 
