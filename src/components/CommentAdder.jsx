@@ -27,14 +27,20 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
   const submitComment = (event) => {
     event.preventDefault();
     setCommentStatus(COMMENT_STATUS_POST_IN_PROGRESS);
+    setIsPostingEnabled(false);
 
     postNewComment(article_id, comment, loggedInUser)
       .then((newComment) => {
         updateCommentsList((currentList) => [newComment, ...currentList]);
 
         setCommentStatus(COMMENT_STATUS_POST_SUCCESSFUL);
+        setIsPostingEnabled(true);
+        setComment("");
       })
-      .catch(COMMENT_STATUS_POST_UNSUCCESSFUL);
+      .catch(() => {
+        setCommentStatus(COMMENT_STATUS_POST_UNSUCCESSFUL);
+        setIsPostingEnabled(true);
+      });
   };
 
   return (
@@ -42,7 +48,7 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
       <form onSubmit={submitComment}>
         <label htmlFor="comment-input">Add comment:</label>
         <textarea
-          className="block border rounded w-full resize-none mt-2 mb-4"
+          className="block border rounded w-full resize-none mt-2 mb-4 pl-1"
           name="comment-input"
           id="comment-input"
           value={comment}
