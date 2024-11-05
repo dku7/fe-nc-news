@@ -1,23 +1,15 @@
 import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
-import { QUERY_PARAM_SORT_BY, QUERY_PARAM_ORDER } from "../utils/constants";
+import { QUERY_PARAM_SORT_BY } from "../utils/constants";
 
-const ArticleSorter = ({ handleSortChange }) => {
+const ArticleSorter = ({ sortBy, handleSortChange }) => {
   const sortOptions = [
     { caption: "Date", value: "created_at" },
     { caption: "Comments", value: "comment_count" },
     { caption: "Votes", value: "votes" },
   ];
 
-  const [sortBy, setSortBy] = useState("created_at");
-  const [order, setOrderBy] = useState("desc");
-
-  const onSortByChange = (event) => {
-    const sortBy = event.target.value;
-
-    setSortBy(sortBy);
-    handleSortChange(QUERY_PARAM_SORT_BY, sortBy);
-  };
+  const onSortByChange = (event) =>
+    handleSortChange(QUERY_PARAM_SORT_BY, event.target.value);
 
   return (
     <div className="flex">

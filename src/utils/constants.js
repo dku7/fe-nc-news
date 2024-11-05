@@ -23,3 +23,4 @@ export const COMMENT_STATUS_DELETE_UNSUCCESSFUL =
 // query param sorting options
 export const QUERY_PARAM_SORT_BY = "sort_by";
 export const QUERY_PARAM_ORDER = "order";
+export const QUERY_PARAM_DEFAULT_SORT_BY_VALUE = "created_at";
