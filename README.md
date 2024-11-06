@@ -12,7 +12,7 @@ The current production version is deployed at https://dku-nc-news.netlify.app/
 
 This project replicates a basic social network application. It was built with **React** and **TailwindCSS** as part of my enrolment on the [Northcoders](https://northcoders.com/) JavaScript Software Development Bootcamp (2024). It enables users to perform full CRUD (Create, Read, Update, Delete) operations on articles and comments. It also utilises efficient state management and client-side routing to provide a responsive, mobile-first experience.
 
-The backend API is a separate project and can be found [here](www.github.com/dku7/be-nc-news).
+The backend API is a separate project and can be found [here](https://www.github.com/dku7/be-nc-news).
 
 ## Installation
 
