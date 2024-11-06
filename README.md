@@ -18,7 +18,7 @@ The backend API is a separate project and can be found [here](www.github.com/dku
 
 - **Clone the repository**: `git clone https://github.com/dku7/fe-nc-news`
 - **Install dependencies**: Navigate to the project directory and install the required Node.js dependencies using: `npm install`
-- **Run locally**: Start the application locally: `npm run dev`. Then open the provided localhost link
+- **Run locally**: Start the application locally: `npm run dev`. Then open the provided `localhost` link
 
 ## Minimum Versions
 
