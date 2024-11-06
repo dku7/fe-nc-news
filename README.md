@@ -5,7 +5,6 @@
 - [About](#about)
 - [Installation](#installation)
 - [Minimum Versions](#minimum-versions)
-- [Usage](#usage)
 
 The current production version is deployed at https://dku-nc-news.netlify.app/
 
