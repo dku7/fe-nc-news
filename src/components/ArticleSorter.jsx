@@ -1,6 +1,10 @@
-import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/20/solid";
-import { QUERY_PARAM_SORT_BY } from "../utils/constants";
+import {
+  QUERY_PARAM_SORT_BY,
+  ORDER_BY_ASC,
+  ORDER_BY_DESC,
+} from "../utils/constants";
 import Selector from "./Selector";
+import SortButton from "./SortButton";
 
 const ArticleSorter = ({ sortBy, handleSortChange }) => {
   const sortOptions = [
@@ -20,12 +24,8 @@ const ArticleSorter = ({ sortBy, handleSortChange }) => {
         onSelectChange={onSelectChange}
         options={sortOptions}
       />
-      <button title="Ascending">
-        <ArrowUpIcon className="size-6 text-black border border-gray-400 rounded" />
-      </button>
-      <button title="Descending">
-        <ArrowDownIcon className="size-6 text-black" />
-      </button>
+      <SortButton direction={ORDER_BY_ASC} />
+      <SortButton direction={ORDER_BY_DESC} />
     </div>
   );
 };
