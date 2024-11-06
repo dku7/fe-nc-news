@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getTopics } from "../services/api";
 import { Link } from "react-router-dom";
+import { TopicsListContext } from "../contexts/TopicsList";
 
 const TopicSelector = () => {
-  const [topics, setTopics] = useState([]);
+  const { topicsList, setTopicsList } = useContext(TopicsListContext);
+
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -12,7 +14,7 @@ const TopicSelector = () => {
     setIsError(false);
 
     getTopics()
-      .then((topics) => setTopics(topics))
+      .then((topics) => setTopicsList(topics))
       .catch(() => setIsError(true))
       .finally(setIsLoading(false));
   }, []);
@@ -24,7 +26,7 @@ const TopicSelector = () => {
     <div>
       <p>Topics</p>
       <ul>
-        {topics.map((topic) => (
+        {topicsList.map((topic) => (
           <li key={topic.slug} className="ml-2 capitalize text-sm">
             <Link to={`/?topic=${topic.slug}`}>{topic.slug}</Link>
           </li>

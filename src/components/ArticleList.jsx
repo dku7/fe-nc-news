@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { getArticles } from "../services/api";
 import LoadingDisplay from "./LoadingDisplay";
 import ErrorDisplay from "./ErrorDisplay";
 import ArticleCard from "./ArticleCard";
 import ArticleSorter from "./ArticleSorter";
+import { TopicsListContext } from "../contexts/TopicsList";
 import {
   QUERY_PARAM_SORT_BY,
   QUERY_PARAM_DEFAULT_SORT_BY_VALUE,
@@ -30,6 +32,9 @@ const parseQueryParams = (searchParams) => {
 };
 
 const ArticleList = ({ searchParams, setSearchParams }) => {
+  const redirect = useNavigate();
+  const { topicsList } = useContext(TopicsListContext);
+
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -52,10 +57,16 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
     setIsError(false);
 
     const queryParams = parseQueryParams(searchParams);
+    const queryTopic = queryParams.topic;
 
-    setTopic(queryParams.topic);
+    setTopic(queryTopic);
     setSortBy(queryParams[QUERY_PARAM_SORT_BY]);
     setOrderBy(queryParams[QUERY_PARAM_ORDER_BY]);
+
+    if (queryTopic) {
+      const foundTopic = topicsList.find((topic) => topic.slug === queryTopic);
+      if (!foundTopic) redirect("/notfound");
+    }
 
     getArticles(queryParams)
       .then((articles) => setArticles(articles))
