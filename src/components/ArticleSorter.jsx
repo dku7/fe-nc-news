@@ -1,7 +1,7 @@
 import {
   QUERY_PARAM_SORT_BY,
-  ORDER_BY_ASC,
-  ORDER_BY_DESC,
+  QUERY_PARAM_ORDER_BY_ASC,
+  QUERY_PARAM_ORDER_BY_DESC,
 } from "../utils/constants";
 import Selector from "./Selector";
 import SortButton from "./SortButton";
@@ -24,8 +24,8 @@ const ArticleSorter = ({ sortBy, handleSortChange }) => {
         onSelectChange={onSelectChange}
         options={sortOptions}
       />
-      <SortButton direction={ORDER_BY_ASC} />
-      <SortButton direction={ORDER_BY_DESC} />
+      <SortButton direction={QUERY_PARAM_ORDER_BY_ASC} />
+      <SortButton direction={QUERY_PARAM_ORDER_BY_DESC} />
     </div>
   );
 };

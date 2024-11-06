@@ -22,9 +22,9 @@ export const COMMENT_STATUS_DELETE_UNSUCCESSFUL =
 
 // query param sorting options
 export const QUERY_PARAM_SORT_BY = "sort_by";
-export const QUERY_PARAM_ORDER = "order";
 export const QUERY_PARAM_DEFAULT_SORT_BY_VALUE = "created_at";
 
-// order by options
-export const ORDER_BY_ASC = "asc";
-export const ORDER_BY_DESC = "desc";
+export const QUERY_PARAM_ORDER = "order";
+export const QUERY_PARAM_ORDER_BY_ASC = "asc";
+export const QUERY_PARAM_ORDER_BY_DESC = "desc";
+export const QUERY_PARAM_DEFAULT_ORDER_BY_VALUE = QUERY_PARAM_ORDER_BY_DESC;
