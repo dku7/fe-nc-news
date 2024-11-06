@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.sort-button__icon--unselected {
+  @apply size-6 text-black;
+}
+
+.sort-button__icon--selected {
+  @apply size-6 text-white bg-gray-400 rounded;
+}

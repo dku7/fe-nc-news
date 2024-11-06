@@ -19,3 +19,12 @@ export const COMMENT_STATUS_DELETE_SUCCESSFUL =
   "Your comment has been deleted.";
 export const COMMENT_STATUS_DELETE_UNSUCCESSFUL =
   "Sorry, your comment could not be deleted. Please try again.";
+
+// query param sorting options
+export const QUERY_PARAM_SORT_BY = "sort_by";
+export const QUERY_PARAM_DEFAULT_SORT_BY_VALUE = "created_at";
+
+export const QUERY_PARAM_ORDER_BY = "order";
+export const QUERY_PARAM_ORDER_BY_ASC = "asc";
+export const QUERY_PARAM_ORDER_BY_DESC = "desc";
+export const QUERY_PARAM_DEFAULT_ORDER_BY_VALUE = QUERY_PARAM_ORDER_BY_DESC;

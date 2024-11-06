@@ -8,7 +8,10 @@ const Home = () => {
   return (
     <>
       <Header />
-      <ArticleList searchParams={searchParams} />
+      <ArticleList
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+      />
     </>
   );
 };
