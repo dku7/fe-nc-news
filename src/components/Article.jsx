@@ -8,6 +8,7 @@ import LoadingDisplay from "./LoadingDisplay";
 import ErrorDisplay from "./ErrorDisplay";
 import CommentsList from "./CommentsList";
 import NotFound from "./NotFound";
+import Menu from "./Menu";
 
 const Article = () => {
   const { article_id } = useParams();
@@ -34,21 +35,44 @@ const Article = () => {
   if (isError) return <ErrorDisplay />;
 
   return (
+    /*
+      <>
+      <div className="sticky top-0">
+        <Header />
+      </div>
+      <div className="flex">
+        <Menu className="h-screen sticky top-0" />
+        <div className="h-full flex-1 mx-20">
+          <ArticleList
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
+        </div>
+      </div>
+    </>
+    */
     <>
-      <Header />
-      <main className="mx-10 md:mx-28 lg:mx-72">
-        <section className="mb-10 px-4">
-          <ArticleHeader article={article} />
-          <article className="py-4">
-            <p className="leading-relaxed">{article.body}</p>
-          </article>
-          <ArticleFooter article={article} votingEnabled={true} />
-        </section>
-        <hr />
-        <section>
-          <CommentsList article_id={article_id} />
-        </section>
-      </main>
+      <div className="sticky top-0">
+        <Header />
+      </div>
+      <div className="flex">
+        <Menu className="h-screen sticky top-0" />
+        <div className="h-full flex-1 mx-10 md:mx-28 lg:mx-48 mt-10">
+          <main>
+            <section className="mb-10 px-4">
+              <ArticleHeader article={article} />
+              <article className="py-4">
+                <p className="leading-relaxed tracking-wide">{article.body}</p>
+              </article>
+              <ArticleFooter article={article} votingEnabled={true} />
+            </section>
+            <hr />
+            <section>
+              <CommentsList article_id={article_id} />
+            </section>
+          </main>
+        </div>
+      </div>
     </>
   );
 };

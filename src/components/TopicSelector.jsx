@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { getTopics } from "../services/api";
 import { Link } from "react-router-dom";
 import { TopicsListContext } from "../contexts/TopicsList";
+import { TagIcon } from "@heroicons/react/24/outline";
 
 const TopicSelector = () => {
   const { topicsList, setTopicsList } = useContext(TopicsListContext);
@@ -24,11 +25,16 @@ const TopicSelector = () => {
 
   return (
     <div>
-      <p>Topics</p>
+      <div className="flex pb-2">
+        <TagIcon className="text-gray-900 h-6 inline-block pb-1 pr-4" />
+        <span className="inline-block">Topics</span>
+      </div>
       <ul>
         {topicsList.map((topic) => (
-          <li key={topic.slug} className="ml-2 capitalize text-sm">
-            <Link to={`/?topic=${topic.slug}`}>{topic.slug}</Link>
+          <li key={topic.slug} className="ml-12 capitalize text-sm pb-1">
+            <Link className="hover:underline" to={`/?topic=${topic.slug}`}>
+              {topic.slug}
+            </Link>
           </li>
         ))}
       </ul>
