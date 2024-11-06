@@ -40,7 +40,7 @@ const Article = () => {
         <section className="mb-10 px-4">
           <ArticleHeader article={article} />
           <article className="py-4">
-            <p className="leading-relaxed">{article.body}</p>
+            <p className="leading-relaxed tracking-wide">{article.body}</p>
           </article>
           <ArticleFooter article={article} votingEnabled={true} />
         </section>

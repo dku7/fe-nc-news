@@ -80,8 +80,8 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
   return (
     <div className="m-5">
       <main>
-        <header>
-          <h2 className="text-3xl font-semibold capitalize">
+        <header className="flex">
+          <h2 className="text-xl md:text-3xl font-semibold capitalize">
             {topic ?? "All articles"}
           </h2>
         </header>
@@ -92,7 +92,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
             handleSortChange={handleSortChange}
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {articles.map((article) => (
             <ArticleCard key={article.article_id} article={article} />
           ))}

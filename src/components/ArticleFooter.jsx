@@ -11,7 +11,7 @@ const ArticleFooter = ({ article, votingEnabled }) => {
   return (
     <div className="font-light flex align-baseline">
       <span className="inline-block">{displayVotingArea()}</span>
-      <span className="pl-8">{article.comment_count} comments</span>
+      <span className="pl-8 my-auto">{article.comment_count} comments</span>
     </div>
   );
 };
