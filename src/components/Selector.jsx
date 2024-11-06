@@ -1,13 +1,13 @@
-const Selector = ({ label, initialValue, onSelectChange, options }) => (
+const Selector = ({ label, currentValue, onSelectChange, options }) => (
   <>
     <label htmlFor="select-option" className="mr-2">
       {label}
     </label>
     <select
       className="border rounded px-2 mx-2"
-      value={initialValue}
+      value={currentValue}
       onChange={onSelectChange}
-      id="sort-by">
+      id="select-option">
       {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.caption}
