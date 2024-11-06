@@ -11,10 +11,13 @@ const NotFound = () => (
           Oh no! We couldn't find that page
         </h2>
       </header>
-      <div className="flex justify-center my-20">
-        <img className="size-2/3" src={sadDog} alt="a sad looking dog" />
-      </div>
-      <p>
+      <img
+        className="w-2/3 lg:w-1/2 block mx-auto my-20"
+        src={sadDog}
+        alt="a sad looking dog"
+      />
+
+      <p className="my-10">
         But don't worry, you can read some great articles{" "}
         <Link className="underline" to="/">
           here
