@@ -13,14 +13,16 @@ const ArticleCard = ({ article }) => (
     <div className="p-4">
       <div className="mb-4 min-h-28">
         <Link to={`/articles/${article.article_id}`}>
-          <span className="text-xl font-semibold hover:underline hover:text-zinc-800 line-clamp-3 tracking-tight">
+          <span className="text-base lg:text-lg font-semibold hover:underline hover:text-zinc-800 line-clamp-3 tracking-tight">
             {article.title}
           </span>
         </Link>
       </div>
       <div className="text-gray-800">
-        <p className="mb-2">{article.topic}</p>
-        <div className="mt-5">
+        <Link className="mb-2 hover:underline" to={`/?topic=${article.topic}`}>
+          {article.topic}
+        </Link>
+        <div className="mt-5 text-sm">
           <span className="article__author">{article.author}</span>
           <span>{formatDateTime(article.created_at)}</span>
         </div>

@@ -38,7 +38,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [topic, setTopic] = useState("");
+  const [topic, setTopic] = useState({});
   const [sortBy, setSortBy] = useState(QUERY_PARAM_DEFAULT_SORT_BY_VALUE);
   const [orderBy, setOrderBy] = useState(QUERY_PARAM_DEFAULT_ORDER_BY_VALUE);
 
@@ -59,14 +59,15 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
     const queryParams = parseQueryParams(searchParams);
     const queryTopic = queryParams.topic;
 
-    setTopic(queryTopic);
     setSortBy(queryParams[QUERY_PARAM_SORT_BY]);
     setOrderBy(queryParams[QUERY_PARAM_ORDER_BY]);
 
     if (queryTopic) {
       const foundTopic = topicsList.find((topic) => topic.slug === queryTopic);
+      setTopic(foundTopic);
+
       if (!foundTopic) redirect("/notfound");
-    }
+    } else setTopic(null);
 
     getArticles(queryParams)
       .then((articles) => setArticles(articles))
@@ -80,10 +81,13 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
   return (
     <div className="m-5">
       <main>
-        <header className="flex">
+        <header>
           <h2 className="text-xl md:text-3xl font-semibold capitalize">
-            {topic ?? "All articles"}
+            {topic?.slug ?? "All articles"}
           </h2>
+          <p className="py-2 text-sm text-gray-700 lowercase">
+            {topic?.description}
+          </p>
         </header>
         <div className="my-4">
           <ArticleSorter

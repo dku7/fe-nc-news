@@ -1,4 +1,5 @@
 import { formatDateTime } from "../utils/utils";
+import { Link } from "react-router-dom";
 
 const ArticleHeader = ({ article }) => (
   <div>
@@ -8,7 +9,9 @@ const ArticleHeader = ({ article }) => (
       <h2 className="text-2xl font-bold my-4">{article.title}</h2>
     </header>
     <div className="text-gray-800">
-      <p className="mb-2">{article.topic}</p>
+      <Link className="mb-2 hover:underline" to={`/?topic=${article.topic}`}>
+        {article.topic}
+      </Link>
       <p className="article__author">{article.author}</p>
       <p>{formatDateTime(article.created_at)}</p>
     </div>
