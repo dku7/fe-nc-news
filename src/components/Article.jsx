@@ -7,12 +7,14 @@ import ArticleFooter from "./ArticleFooter";
 import LoadingDisplay from "./LoadingDisplay";
 import ErrorDisplay from "./ErrorDisplay";
 import CommentsList from "./CommentsList";
+import NotFound from "./NotFound";
 
 const Article = () => {
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -20,11 +22,15 @@ const Article = () => {
 
     getArticleById(article_id)
       .then((article) => setArticle(article))
-      .catch(() => setIsError(true))
+      .catch((error) => {
+        if (error.status === 400 || error.status === 404) setIsNotFound(true);
+        else setIsError(true);
+      })
       .finally(setIsLoading(false));
   }, []);
 
   if (isLoading) return <LoadingDisplay />;
+  if (isNotFound) return <NotFound />;
   if (isError) return <ErrorDisplay />;
 
   return (
