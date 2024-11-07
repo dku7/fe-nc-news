@@ -96,7 +96,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
             handleSortChange={handleSortChange}
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="flex flex-wrap">
           {articles.map((article) => (
             <ArticleCard key={article.article_id} article={article} />
           ))}

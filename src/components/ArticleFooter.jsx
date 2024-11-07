@@ -9,7 +9,7 @@ const ArticleFooter = ({ article, votingEnabled }) => {
     );
 
   return (
-    <div className="font-light flex align-baseline sm:text-sm mb-8">
+    <div className="font-light flex align-baseline sm:text-sm mb-4">
       <span className="inline-block">{displayVotingArea()}</span>
       <span className="pl-8 my-auto">{article.comment_count} comments</span>
     </div>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { TopicsListContext } from "../contexts/TopicsList";
 import { TagIcon } from "@heroicons/react/24/outline";
 
-const TopicSelector = () => {
+const TopicSelector = ({ onSelect }) => {
   const { topicsList, setTopicsList } = useContext(TopicsListContext);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +32,10 @@ const TopicSelector = () => {
       <ul>
         {topicsList.map((topic) => (
           <li key={topic.slug} className="ml-12 capitalize text-sm pb-1">
-            <Link className="hover:underline" to={`/?topic=${topic.slug}`}>
+            <Link
+              className="hover:underline"
+              onClick={onSelect}
+              to={`/?topic=${topic.slug}`}>
               {topic.slug}
             </Link>
           </li>
