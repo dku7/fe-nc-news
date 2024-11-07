@@ -34,7 +34,7 @@ const Article = () => {
   if (isError) return <ErrorDisplay />;
 
   return (
-    <MainContainer>
+    <MainContainer article={article}>
       <main className="my-10 w-full md:w-4/5 sm:px-8">
         <section>
           <ArticleHeader article={article} />

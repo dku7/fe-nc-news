@@ -3,7 +3,7 @@ import Menu from "./Menu";
 import Header from "./Header";
 import { SmallScreenContext } from "../contexts/SmallScreen";
 
-const MainContainer = ({ children, searchParams }) => {
+const MainContainer = ({ children, searchParams, article }) => {
   const { isSmallScreen } = useContext(SmallScreenContext);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,7 +34,7 @@ const MainContainer = ({ children, searchParams }) => {
     );
 
     isMenuOpen ? setContent(showMenuOnly()) : setContent(showMenuAndContent());
-  }, [isMenuOpen, searchParams]);
+  }, [isMenuOpen, searchParams, article]);
 
   return (
     <div className="grid grid-cols-[200px_auto] grid-rows-[112px_auto] min-w-[440px]">
