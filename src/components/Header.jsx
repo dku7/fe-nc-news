@@ -14,7 +14,7 @@ const Header = ({ isMenuOpen, handleMenuOpen }) => {
         )}
       </div>
       <div className="w-full text-center py-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-white p-4">
+        <h1 className="text-3xl md:text-5xl font-bold text-white py-4 -ml-20">
           <Link to="/">
             <span className="border bg-gray-50 rounded-l-lg rounded-r px-2 text-sky-700">
               NC
