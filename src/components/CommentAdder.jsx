@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoggedInUserContext } from "../contexts/LoggedInUser";
 import {
   COMMENT_STATUS_POST_IN_PROGRESS,
@@ -24,12 +24,18 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
     setComment(newComment);
     setIsPostingEnabled(newComment);
   };
+
+  useEffect(() => {
+    setCommentStatus("");
+    setIsPostingEnabled(loggedInUser);
+  }, [loggedInUser]);
+
   const submitComment = (event) => {
     event.preventDefault();
     setCommentStatus(COMMENT_STATUS_POST_IN_PROGRESS);
     setIsPostingEnabled(false);
 
-    postNewComment(article_id, comment, loggedInUser)
+    postNewComment(article_id, comment, loggedInUser.username)
       .then((newComment) => {
         updateCommentsList((currentList) => [newComment, ...currentList]);
 
@@ -43,6 +49,20 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
       });
   };
 
+  const checkUserIsLoggedIn = () =>
+    loggedInUser ? (
+      <button
+        className={
+          isPostingEnabled ? ENABLED_BUTTON_CLASS : DISABLED_BUTTON_CLASS
+        }
+        type="submit"
+        disabled={!isPostingEnabled}>
+        Add
+      </button>
+    ) : (
+      <p>Log in to have your say</p>
+    );
+
   return (
     <div>
       <form onSubmit={submitComment}>
@@ -52,16 +72,10 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
           name="comment-input"
           id="comment-input"
           value={comment}
+          disabled={!loggedInUser}
           onChange={handleCommentChange}
         />
-        <button
-          className={
-            isPostingEnabled ? ENABLED_BUTTON_CLASS : DISABLED_BUTTON_CLASS
-          }
-          type="submit"
-          disabled={!isPostingEnabled}>
-          Add
-        </button>
+        {checkUserIsLoggedIn()}
       </form>
       <p>{commentStatus}</p>
     </div>
