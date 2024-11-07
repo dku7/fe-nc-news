@@ -8,7 +8,6 @@ import {
   VOTE_STATUS_VOTING_IN_PROGRESS,
   VOTE_STATUS_VOTE_SUCCESSFUL,
 } from "../utils/constants";
-import ErrorDisplay from "./ErrorDisplay";
 
 const getIcon = (direction) => {
   switch (direction) {
