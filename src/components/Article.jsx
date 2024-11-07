@@ -21,12 +21,14 @@ const Article = () => {
     setIsError(false);
 
     getArticleById(article_id)
-      .then((article) => setArticle(article))
+      .then((article) => {
+        setArticle(article);
+        setIsLoading(false);
+      })
       .catch((error) => {
         if (error.status === 400 || error.status === 404) setIsNotFound(true);
         else setIsError(true);
-      })
-      .finally(setIsLoading(false));
+      });
   }, []);
 
   if (isLoading) return <LoadingDisplay />;

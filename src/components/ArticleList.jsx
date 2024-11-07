@@ -70,12 +70,15 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
     } else setTopic(null);
 
     getArticles(queryParams)
-      .then((articles) => setArticles(articles))
-      .catch(() => setIsError(true))
-      .finally(setIsLoading(false));
+      .then((articles) => {
+        setArticles(articles);
+        setIsLoading(false);
+      })
+      .catch(() => setIsError(true));
   }, [searchParams]);
 
   if (isLoading) return <LoadingDisplay />;
+
   if (isError) return <ErrorDisplay />;
 
   return (

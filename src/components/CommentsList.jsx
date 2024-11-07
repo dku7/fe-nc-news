@@ -15,9 +15,11 @@ const CommentsList = ({ article_id }) => {
     setIsError(false);
 
     getArticleComments(article_id)
-      .then((comments) => setComments(comments))
-      .catch(() => setIsError(true))
-      .finally(setIsLoading(false));
+      .then((comments) => {
+        setComments(comments);
+        setIsLoading(false);
+      })
+      .catch(() => setIsError(true));
   }, []);
 
   return (
