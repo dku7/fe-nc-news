@@ -60,7 +60,7 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
         Add
       </button>
     ) : (
-      <p>Log in to have your say</p>
+      <p>Log in to have your say.</p>
     );
 
   return (
