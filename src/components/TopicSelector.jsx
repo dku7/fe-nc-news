@@ -24,7 +24,7 @@ const TopicSelector = ({ onSelect }) => {
   if (isError) return <p>Could not load topics.</p>;
 
   return (
-    <div>
+    <>
       <div className="flex pb-2">
         <TagIcon className="text-gray-900 h-6 inline-block pb-1 pr-4" />
         <span className="inline-block">Topics</span>
@@ -41,7 +41,7 @@ const TopicSelector = ({ onSelect }) => {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 
