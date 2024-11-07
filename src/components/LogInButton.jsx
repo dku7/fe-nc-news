@@ -1,17 +1,13 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoggedInUserContext } from "../contexts/LoggedInUser";
 
 const LogInButton = () => {
   const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
+  const redirect = useNavigate();
 
   const signOut = () => setLoggedInUser(null);
-  const signIn = () =>
-    setLoggedInUser({
-      username: "cooljmessy",
-      name: "Peter Messy",
-      avatar_url:
-        "https://vignette.wikia.nocookie.net/mrmen/images/1/1a/MR_MESSY_4A.jpg/revision/latest/scale-to-width-down/250?cb=20170730171002",
-    });
+  const signIn = () => redirect("/login");
 
   const notLoggedIn = (
     <button
