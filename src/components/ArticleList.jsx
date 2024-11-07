@@ -74,7 +74,11 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
         setArticles(articles);
         setIsLoading(false);
       })
-      .catch(() => setIsError(true));
+      .catch((error) => {
+        console.log(error);
+        setIsError(true);
+        setIsLoading(false);
+      });
   }, [searchParams]);
 
   if (isLoading) return <LoadingDisplay />;

@@ -28,6 +28,7 @@ const Article = () => {
       .catch((error) => {
         if (error.status === 400 || error.status === 404) setIsNotFound(true);
         else setIsError(true);
+        setIsLoading(false);
       });
   }, []);
 

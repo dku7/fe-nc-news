@@ -19,7 +19,10 @@ const CommentsList = ({ article_id }) => {
         setComments(comments);
         setIsLoading(false);
       })
-      .catch(() => setIsError(true));
+      .catch(() => {
+        setIsError(true);
+        setIsLoading(false);
+      });
   }, []);
 
   return (
