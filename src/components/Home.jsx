@@ -6,7 +6,7 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
-    <MainContainer>
+    <MainContainer searchParams={searchParams}>
       <ArticleList
         searchParams={searchParams}
         setSearchParams={setSearchParams}

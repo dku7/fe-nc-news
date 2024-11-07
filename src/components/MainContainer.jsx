@@ -1,15 +1,26 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Menu from "./Menu";
 import Header from "./Header";
+import { SmallScreenContext } from "../contexts/SmallScreen";
 
-const MainContainer = ({ children }) => {
+const MainContainer = ({ children, searchParams }) => {
+  const { isSmallScreen } = useContext(SmallScreenContext);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [content, setContent] = useState();
 
-  const handleMenuOpen = () =>
-    setIsMenuOpen((isOpen) => {
-      return !isOpen;
-    });
+  const handleMenuOpen = () => {
+    console.log("small screen?", isSmallScreen);
+    console.log("menu?", isMenuOpen);
+    if (!isSmallScreen) setIsMenuOpen(false);
+
+    if (isSmallScreen) {
+      console.log("inverting menu");
+      setIsMenuOpen((isOpen) => {
+        return !isOpen;
+      });
+    }
+  };
 
   useEffect(() => {
     const showMenuOnly = () => (
@@ -30,8 +41,9 @@ const MainContainer = ({ children }) => {
       </>
     );
 
+    console.log("is smallscreen ", isSmallScreen);
     isMenuOpen ? setContent(showMenuOnly()) : setContent(showMenuAndContent());
-  }, [isMenuOpen]);
+  }, [isMenuOpen, searchParams]);
 
   return (
     <div className="grid grid-cols-[200px_auto] grid-rows-[112px_auto] min-w-[440px]">
