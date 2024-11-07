@@ -1,11 +1,9 @@
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import Hamburger from "./Hamburger";
 
 const Header = () => (
   <header className="flex bg-gradient-to-b from-sky-700 to-sky-900 ">
     <div className="p-4">
-      <button>
-        <Bars3Icon className="size-8 text-white md:hidden" />
-      </button>
+      <Hamburger />
     </div>
     <div className="w-full text-center py-4">
       <h1 className="text-4xl md:text-5xl font-bold text-white p-4">
