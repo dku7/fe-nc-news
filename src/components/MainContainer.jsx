@@ -38,7 +38,7 @@ const MainContainer = ({ children, searchParams, article }) => {
 
   return (
     <div className="grid grid-cols-[200px_auto] grid-rows-[112px_auto] min-w-[440px]">
-      <div className="col-span-2 row-start-1">
+      <div className="col-span-2 row-start-1 sticky top-0">
         <Header handleMenuOpen={handleMenuOpen} />
       </div>
       {content}
