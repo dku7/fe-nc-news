@@ -10,6 +10,7 @@ const ArticleCard = ({ article }) => (
         to={`/articles/${article.article_id}`}>
         <img
           className="h-[200px] w-full object-cover hover:cursor-pointer"
+          alt={`User posted image about ${article.topic}`}
           src={article.article_img_url}
         />
       </Link>
