@@ -7,20 +7,20 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
-    <>
-      <div className="sticky top-0">
+    <div className="grid grid-cols-[200px_auto] grid-rows-[112px_auto] min-w-[440px]">
+      <div className="col-span-2 row-start-1">
         <Header />
       </div>
-      <div className="flex">
-        <Menu className="h-screen sticky top-0" />
-        <div className="h-full flex-1 mx-20">
-          <ArticleList
-            searchParams={searchParams}
-            setSearchParams={setSearchParams}
-          />
-        </div>
+      <div className="col-span-1 row-start-2 border-r border-gray-200">
+        <Menu />
       </div>
-    </>
+      <div className="col-span-1 row-start-2">
+        <ArticleList
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+        />
+      </div>
+    </div>
   );
 };
 export default Home;
