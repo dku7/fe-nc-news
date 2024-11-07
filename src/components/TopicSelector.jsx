@@ -19,7 +19,10 @@ const TopicSelector = ({ onSelect }) => {
         setTopicsList(topics);
         setIsLoading(false);
       })
-      .catch(() => setIsError(true));
+      .catch(() => {
+        setIsError(true);
+        setIsLoading(false);
+      });
   }, []);
 
   if (isLoading) return <p>Loading topics...</p>;
