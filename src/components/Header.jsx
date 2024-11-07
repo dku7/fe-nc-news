@@ -1,9 +1,9 @@
 import Hamburger from "./Hamburger";
 
-const Header = () => (
+const Header = ({ handleMenuOpen }) => (
   <header className="flex bg-gradient-to-b from-sky-700 to-sky-900 ">
     <div className="p-4">
-      <Hamburger />
+      <Hamburger handleMenuOpen={handleMenuOpen} />
     </div>
     <div className="w-full text-center py-4">
       <h1 className="text-4xl md:text-5xl font-bold text-white p-4">
