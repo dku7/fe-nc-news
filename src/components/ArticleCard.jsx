@@ -3,7 +3,7 @@ import { formatDateTime } from "../utils/utils";
 import { Link } from "react-router-dom";
 
 const ArticleCard = ({ article }) => (
-  <div className="w-fit md:w-72 h-[424px] flex-grow-0 ">
+  <div className="w-full md:w-1/2 lg:w-1/3 h-[424px] ">
     <div className="m-4 h-fit bg-white rounded-md overflow-hidden shadow-md hover:shadow-2xl">
       <Link to={`/articles/${article.article_id}`}>
         <img
