@@ -47,7 +47,7 @@ const CommentFooter = ({ comment, updateCommentsList }) => {
   return (
     <div className="flex justify-between">
       <span className="">votes: {comment.votes}</span>
-      {loggedInUser === comment.author ? showDeleteButton() : null}
+      {loggedInUser?.username === comment.author ? showDeleteButton() : null}
     </div>
   );
 };
