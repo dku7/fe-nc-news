@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 
 const ArticleHeader = ({ article }) => (
   <div>
-    <img className="object-cover w-full" src={article.article_img_url} />
+    <img
+      className="object-cover w-full rounded-t-md"
+      src={article.article_img_url}
+    />
 
     <header>
       <h2 className="text-2xl font-bold my-4">{article.title}</h2>
