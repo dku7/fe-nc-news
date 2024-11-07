@@ -1,7 +1,12 @@
 const formatDateTime = (date) => {
-  const newDate = new Date(date);
+  let dateStr = "";
 
-  return newDate.toLocaleDateString();
+  if (date) {
+    const newDate = new Date(date);
+    dateStr = newDate.toLocaleDateString();
+  }
+
+  return dateStr;
 };
 
 export { formatDateTime };
