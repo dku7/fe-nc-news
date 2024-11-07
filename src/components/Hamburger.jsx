@@ -1,9 +1,13 @@
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-const Hamburger = ({ handleMenuOpen }) => {
+const Hamburger = ({ isMenuOpen, handleMenuOpen }) => {
   return (
     <button onClick={handleMenuOpen}>
-      <Bars3Icon className="size-8 text-white" />
+      {isMenuOpen ? (
+        <XMarkIcon className="size-8 text-white" />
+      ) : (
+        <Bars3Icon className="size-8 text-white" />
+      )}
     </button>
   );
 };
