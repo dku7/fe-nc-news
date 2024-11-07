@@ -19,12 +19,19 @@ const getIcon = (direction) => {
 };
 
 const VotingButton = ({ direction, onVoteClick, votingStatus }) => {
-  const voteAmount =
-    direction === VOTE_DIRECTION_UP
-      ? 1
-      : direction === VOTE_DIRECTION_DOWN
-      ? -1
-      : 0;
+  let voteAmount = 0;
+  let buttonTitle = "";
+
+  switch (direction) {
+    case VOTE_DIRECTION_UP:
+      voteAmount = 1;
+      buttonTitle = "Vote up";
+      break;
+    case VOTE_DIRECTION_DOWN:
+      voteAmount = -1;
+      buttonTitle = "Vote down";
+      break;
+  }
 
   return (
     <button
@@ -32,6 +39,7 @@ const VotingButton = ({ direction, onVoteClick, votingStatus }) => {
         VOTE_STATUS_VOTING_IN_PROGRESS,
         VOTE_STATUS_VOTE_SUCCESSFUL,
       ].includes(votingStatus)}
+      title={buttonTitle}
       onClick={() => {
         onVoteClick(voteAmount);
       }}>
