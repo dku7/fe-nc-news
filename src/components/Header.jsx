@@ -14,7 +14,7 @@ const Header = ({ isMenuOpen, handleMenuOpen }) => {
           <Hamburger isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
         )}
       </div>
-      <header className="w-full text-center py-4">
+      <header className="w-full text-center py-8">
         <h1 className="text-3xl md:text-5xl font-bold text-white pr-12">
           <Link to="/">
             <span className="border bg-gray-50 rounded-l-lg rounded-r px-2 text-sky-700">
