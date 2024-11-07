@@ -3,7 +3,7 @@ import TopicSelector from "./TopicSelector";
 import { HomeIcon } from "@heroicons/react/24/outline";
 
 const Menu = () => (
-  <nav className="pl-4 pt-4 pr-20 border-r border-gray-200">
+  <nav className="pl-4 pt-4 pr-20 ">
     <ul>
       <li>
         <div className="flex pb-2">
