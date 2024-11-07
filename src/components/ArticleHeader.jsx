@@ -5,6 +5,7 @@ const ArticleHeader = ({ article }) => (
   <div>
     <img
       className="object-cover w-full rounded-t-md"
+      alt={`User posted image about ${article.topic}`}
       src={article.article_img_url}
     />
 
