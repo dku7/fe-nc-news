@@ -18,10 +18,17 @@ const getIcon = (direction, currentValue) => {
   }
 };
 
-const SortButton = ({ direction, currentValue, onOrderChange }) => (
-  <button onClick={() => onOrderChange(direction)}>
-    {getIcon(direction, currentValue)}
-  </button>
-);
+const SortButton = ({ direction, currentValue, onOrderChange }) => {
+  const buttonTitle =
+    direction === QUERY_PARAM_ORDER_BY_ASC
+      ? "Sort ascending"
+      : "Sort descending";
+
+  return (
+    <button title={buttonTitle} onClick={() => onOrderChange(direction)}>
+      {getIcon(direction, currentValue)}
+    </button>
+  );
+};
 
 export default SortButton;
