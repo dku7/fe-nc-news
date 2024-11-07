@@ -10,16 +10,8 @@ const MainContainer = ({ children, searchParams }) => {
   const [content, setContent] = useState();
 
   const handleMenuOpen = () => {
-    console.log("small screen?", isSmallScreen);
-    console.log("menu?", isMenuOpen);
     if (!isSmallScreen) setIsMenuOpen(false);
-
-    if (isSmallScreen) {
-      console.log("inverting menu");
-      setIsMenuOpen((isOpen) => {
-        return !isOpen;
-      });
-    }
+    else setIsMenuOpen((isOpen) => !isOpen);
   };
 
   useEffect(() => {
@@ -41,7 +33,6 @@ const MainContainer = ({ children, searchParams }) => {
       </>
     );
 
-    console.log("is smallscreen ", isSmallScreen);
     isMenuOpen ? setContent(showMenuOnly()) : setContent(showMenuAndContent());
   }, [isMenuOpen, searchParams]);
 
