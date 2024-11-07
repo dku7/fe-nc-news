@@ -11,10 +11,10 @@ const Home = () => {
       <div className="col-span-2 row-start-1">
         <Header />
       </div>
-      <div className="col-span-1 row-start-2 border-r border-gray-200">
+      <div className="hidden md:block col-span-1 row-start-2 border-r border-gray-200">
         <Menu />
       </div>
-      <div className="col-span-1 row-start-2">
+      <div className="col-span-2 md:col-span-1 row-start-2">
         <ArticleList
           searchParams={searchParams}
           setSearchParams={setSearchParams}
