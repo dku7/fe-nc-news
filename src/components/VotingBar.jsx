@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import VotingButton from "./VotingButton";
 import {
   VOTE_DIRECTION_UP,
@@ -8,23 +8,32 @@ import {
   VOTE_STATUS_VOTE_UNSUCCESSFUL,
 } from "../utils/constants";
 import { patchArticleVotes } from "../services/api";
+import { LoggedInUserContext } from "../contexts/LoggedInUser";
 
 const VotingBar = ({ article_id, currentVotes }) => {
+  const { loggedInUser } = useContext(LoggedInUserContext);
   const [votes, setVotes] = useState(currentVotes);
   const [votingStatus, setVotingStatus] = useState("");
 
-  useEffect(() => setVotes(currentVotes), [currentVotes]);
+  useEffect(() => {
+    setVotes(currentVotes);
+    setVotingStatus("");
+  }, [currentVotes, loggedInUser]);
 
   const handleVoting = (amount) => {
-    setVotingStatus(VOTE_STATUS_VOTING_IN_PROGRESS);
-    setVotes((cur) => cur + amount);
+    if (!loggedInUser) {
+      setVotingStatus("You must be logged in to vote.");
+    } else {
+      setVotingStatus(VOTE_STATUS_VOTING_IN_PROGRESS);
+      setVotes((cur) => cur + amount);
 
-    patchArticleVotes(article_id, amount)
-      .then(() => setVotingStatus(VOTE_STATUS_VOTE_SUCCESSFUL))
-      .catch(() => {
-        setVotingStatus(VOTE_STATUS_VOTE_UNSUCCESSFUL);
-        setVotes((cur) => cur - amount);
-      });
+      patchArticleVotes(article_id, amount)
+        .then(() => setVotingStatus(VOTE_STATUS_VOTE_SUCCESSFUL))
+        .catch(() => {
+          setVotingStatus(VOTE_STATUS_VOTE_UNSUCCESSFUL);
+          setVotes((cur) => cur - amount);
+        });
+    }
   };
 
   return (

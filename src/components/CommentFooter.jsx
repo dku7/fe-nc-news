@@ -21,8 +21,8 @@ const CommentFooter = ({ comment, updateCommentsList }) => {
       .then(() => {
         updateCommentsList((currentList) =>
           currentList.filter(
-            (listComment) => listComment.comment_id !== comment.comment_id
-          )
+            (listComment) => listComment.comment_id !== comment.comment_id,
+          ),
         );
         setDeleteStatus(COMMENT_STATUS_DELETE_SUCCESSFUL);
       })
@@ -37,8 +37,9 @@ const CommentFooter = ({ comment, updateCommentsList }) => {
       <button
         title="Delete comment"
         disabled={!isDeleteEnabled}
-        onClick={handleDeleteComment}>
-        <XMarkIcon className="size-6 text-black" />
+        onClick={handleDeleteComment}
+      >
+        <XMarkIcon className="text-brand-secondary size-6" />
       </button>
       <p>{deleteStatus}</p>
     </div>
@@ -47,7 +48,7 @@ const CommentFooter = ({ comment, updateCommentsList }) => {
   return (
     <div className="flex justify-between">
       <span className="">votes: {comment.votes}</span>
-      {loggedInUser === comment.author ? showDeleteButton() : null}
+      {loggedInUser?.username === comment.author ? showDeleteButton() : null}
     </div>
   );
 };

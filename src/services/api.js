@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apiClient = axios.create({
   baseURL: "https://nc-news-voyg.onrender.com",
-  timeout: 1000,
+  timeout: 10000,
 });
 
 export const getArticles = (queryParams) =>

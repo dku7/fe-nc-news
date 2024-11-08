@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoggedInUserContext } from "../contexts/LoggedInUser";
 import {
   COMMENT_STATUS_POST_IN_PROGRESS,
@@ -8,11 +8,6 @@ import {
 import { postNewComment } from "../services/api";
 
 const CommentAdder = ({ article_id, updateCommentsList }) => {
-  const DISABLED_BUTTON_CLASS =
-    "border rounded px-4 bg-gray-100 text-gray-800 mb-2";
-  const ENABLED_BUTTON_CLASS =
-    "border rounded px-4 bg-gray-800 text-white mb-2";
-
   const { loggedInUser } = useContext(LoggedInUserContext);
   const [comment, setComment] = useState("");
   const [commentStatus, setCommentStatus] = useState("");
@@ -24,12 +19,15 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
     setComment(newComment);
     setIsPostingEnabled(newComment);
   };
+
+  useEffect(() => setCommentStatus(""), [loggedInUser]);
+
   const submitComment = (event) => {
     event.preventDefault();
     setCommentStatus(COMMENT_STATUS_POST_IN_PROGRESS);
     setIsPostingEnabled(false);
 
-    postNewComment(article_id, comment, loggedInUser)
+    postNewComment(article_id, comment, loggedInUser.username)
       .then((newComment) => {
         updateCommentsList((currentList) => [newComment, ...currentList]);
 
@@ -43,25 +41,37 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
       });
   };
 
+  const checkUserIsLoggedIn = () =>
+    loggedInUser ? (
+      <button
+        className={
+          "mb-2 rounded border px-4 " +
+          (isPostingEnabled
+            ? "bg-brand-primary hover:bg-brand-tertiary text-white hover:text-white"
+            : " bg-gray-100 text-gray-800")
+        }
+        type="submit"
+        disabled={!isPostingEnabled}
+      >
+        Add
+      </button>
+    ) : (
+      <p>Log in to have your say.</p>
+    );
+
   return (
     <div>
       <form onSubmit={submitComment}>
         <label htmlFor="comment-input">Add comment:</label>
         <textarea
-          className="block border rounded w-full resize-none mt-2 mb-4 pl-1"
+          className="mb-4 mt-2 block w-full resize-none rounded border pl-1"
           name="comment-input"
           id="comment-input"
           value={comment}
+          disabled={!loggedInUser}
           onChange={handleCommentChange}
         />
-        <button
-          className={
-            isPostingEnabled ? ENABLED_BUTTON_CLASS : DISABLED_BUTTON_CLASS
-          }
-          type="submit"
-          disabled={!isPostingEnabled}>
-          Add
-        </button>
+        {checkUserIsLoggedIn()}
       </form>
       <p>{commentStatus}</p>
     </div>

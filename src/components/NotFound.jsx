@@ -1,20 +1,20 @@
 import { Link } from "react-router-dom";
 import Header from "./Header";
-import sadDog from "../assets/sad-dog.jpg";
+import notFoundPic from "../assets/not-found-pug.jpg";
 
 const NotFound = () => (
   <>
     <Header />
-    <main className="text-center mt-20">
+    <main className="mt-20 text-center">
       <header>
-        <h2 className="font-bold text-2xl">
+        <h2 className="text-2xl font-bold">
           Oh no! We couldn't find that page
         </h2>
       </header>
       <img
-        className="w-2/3 lg:w-1/2 block mx-auto my-20"
-        src={sadDog}
-        alt="a sad looking dog"
+        className="mx-auto my-20 block w-2/3 lg:w-1/2"
+        src={notFoundPic}
+        alt="a sad looking pug"
       />
 
       <p className="my-10">

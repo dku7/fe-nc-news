@@ -3,11 +3,12 @@ import { formatDateTime } from "../utils/utils";
 import { Link } from "react-router-dom";
 
 const ArticleCard = ({ article }) => (
-  <div className="w-full md:w-1/2 lg:w-1/3 h-[424px] ">
-    <div className="m-4 h-fit bg-white rounded-md overflow-hidden shadow-md hover:shadow-2xl">
+  <div className="h-[424px] w-full md:w-1/2 lg:w-1/3 lg:min-w-[340px]">
+    <div className="m-4 h-fit overflow-hidden rounded-md bg-white shadow-md hover:shadow-2xl">
       <Link
         aria-label={`Read more about ${article.title}`}
-        to={`/articles/${article.article_id}`}>
+        to={`/articles/${article.article_id}`}
+      >
         <img
           className="h-[200px] w-full object-cover hover:cursor-pointer"
           alt={`User posted image about ${article.topic}`}
@@ -16,19 +17,22 @@ const ArticleCard = ({ article }) => (
       </Link>
       <div className="px-4 py-2">
         <div className="mb-2 min-h-20">
-          <Link
-            aria-label={`Read more about ${article.title}`}
-            to={`/articles/${article.article_id}`}>
-            <span className="font-semibold hover:underline hover:text-zinc-800 line-clamp-3 tracking-tight">
+          <h2>
+            <Link
+              className="hover:text-brand-secondary font-semibold hover:underline md:line-clamp-2"
+              aria-label={`Read more about ${article.title}`}
+              to={`/articles/${article.article_id}`}
+            >
               {article.title}
-            </span>
-          </Link>
+            </Link>
+          </h2>
         </div>
-        <div className="text-gray-800">
+        <div>
           <Link
-            className="mb-2 hover:underline"
+            className="text-brand-secondary mb-2 hover:underline"
             aria-label={`Read more articles on ${article.topic}`}
-            to={`/?topic=${article.topic}`}>
+            to={`/?topic=${article.topic}`}
+          >
             {article.topic}
           </Link>
           <div className="mt-5 text-sm">

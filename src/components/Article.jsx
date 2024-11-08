@@ -21,12 +21,15 @@ const Article = () => {
     setIsError(false);
 
     getArticleById(article_id)
-      .then((article) => setArticle(article))
+      .then((article) => {
+        setArticle(article);
+        setIsLoading(false);
+      })
       .catch((error) => {
         if (error.status === 400 || error.status === 404) setIsNotFound(true);
         else setIsError(true);
-      })
-      .finally(setIsLoading(false));
+        setIsLoading(false);
+      });
   }, []);
 
   if (isLoading) return <LoadingDisplay />;
@@ -35,7 +38,7 @@ const Article = () => {
 
   return (
     <MainContainer article={article}>
-      <main className="m-10 w-full md:w-4/5 sm:px-8">
+      <main className="mx-2 mt-4 w-full sm:px-8 md:mx-28 md:w-4/5 lg:mx-60">
         <section>
           <ArticleHeader article={article} />
           <article className="py-4">

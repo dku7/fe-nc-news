@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  @apply font-headings;
+}
+.sort-button__icon--unselected {
+  @apply size-6 text-black;
+}
+
+.sort-button__icon--selected {
+  @apply bg-brand-tertiary size-6 rounded text-gray-100;
+}
+
+.article__author {
+  @apply pr-5 font-semibold;
+}
+
+.login-button {
+  @apply text-brand-primary hover:bg-brand-tertiary rounded bg-white text-sm hover:text-white;
+}
