@@ -75,8 +75,8 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
         setIsLoading(false);
       })
       .catch(() => {
-        setIsError(true);
         setIsLoading(false);
+        setIsError(true);
       });
   }, [searchParams]);
 
