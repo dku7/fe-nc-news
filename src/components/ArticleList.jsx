@@ -12,7 +12,7 @@ import {
   QUERY_PARAM_ORDER_BY,
   QUERY_PARAM_DEFAULT_ORDER_BY_VALUE,
   QUERY_PARAM_LIMIT,
-  QUERY_PARAM_DEFAULT_LIMIT,
+  QUERY_PARAM_DEFAULT_ARTICLE_LIMIT,
   QUERY_PARAM_PAGE,
   QUERY_PARAM_DEFAULT_PAGE,
 } from "../utils/constants";
@@ -26,7 +26,7 @@ const parseQueryParams = (searchParams) => {
     searchParams.get(QUERY_PARAM_ORDER_BY) ??
     QUERY_PARAM_DEFAULT_ORDER_BY_VALUE;
   const queryLimit =
-    searchParams.get(QUERY_PARAM_LIMIT) ?? QUERY_PARAM_DEFAULT_LIMIT;
+    searchParams.get(QUERY_PARAM_LIMIT) ?? QUERY_PARAM_DEFAULT_ARTICLE_LIMIT;
   const queryPage =
     searchParams.get(QUERY_PARAM_PAGE) ?? QUERY_PARAM_DEFAULT_PAGE;
 
@@ -49,7 +49,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
   const [topic, setTopic] = useState({});
   const [sortBy, setSortBy] = useState(QUERY_PARAM_DEFAULT_SORT_BY_VALUE);
   const [orderBy, setOrderBy] = useState(QUERY_PARAM_DEFAULT_ORDER_BY_VALUE);
-  const [limit, setLimit] = useState(QUERY_PARAM_DEFAULT_LIMIT);
+  const [limit, setLimit] = useState(QUERY_PARAM_DEFAULT_ARTICLE_LIMIT);
   const [page, setPage] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
 

@@ -30,6 +30,8 @@ export const QUERY_PARAM_ORDER_BY_DESC = "desc";
 export const QUERY_PARAM_DEFAULT_ORDER_BY_VALUE = QUERY_PARAM_ORDER_BY_DESC;
 
 export const QUERY_PARAM_LIMIT = "limit";
-export const QUERY_PARAM_DEFAULT_LIMIT = 6;
 export const QUERY_PARAM_PAGE = "p";
 export const QUERY_PARAM_DEFAULT_PAGE = 1;
+
+export const QUERY_PARAM_DEFAULT_ARTICLE_LIMIT = 6;
+export const QUERY_PARAM_DEFAULT_COMMENT_LIMIT = 5;
