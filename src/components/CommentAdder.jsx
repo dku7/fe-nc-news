@@ -25,10 +25,7 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
     setIsPostingEnabled(newComment);
   };
 
-  useEffect(() => {
-    setCommentStatus("");
-    setIsPostingEnabled(loggedInUser);
-  }, [loggedInUser]);
+  useEffect(() => setCommentStatus(""), [loggedInUser]);
 
   const submitComment = (event) => {
     event.preventDefault();
@@ -56,7 +53,8 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
           isPostingEnabled ? ENABLED_BUTTON_CLASS : DISABLED_BUTTON_CLASS
         }
         type="submit"
-        disabled={!isPostingEnabled}>
+        disabled={!isPostingEnabled}
+      >
         Add
       </button>
     ) : (
@@ -68,7 +66,7 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
       <form onSubmit={submitComment}>
         <label htmlFor="comment-input">Add comment:</label>
         <textarea
-          className="block border rounded w-full resize-none mt-2 mb-4 pl-1"
+          className="mb-4 mt-2 block w-full resize-none rounded border pl-1"
           name="comment-input"
           id="comment-input"
           value={comment}
