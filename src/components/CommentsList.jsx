@@ -16,6 +16,7 @@ const CommentsList = ({ article_id }) => {
 
   const handlePageChange = (step) => {
     const nextPage = page + (step ?? 0);
+
     setComments([]);
     setPage(nextPage);
     setIsLoading(true);
