@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { getTopics } from "../services/api";
 import { Link } from "react-router-dom";
 import { TopicsListContext } from "../contexts/TopicsList";
-import { TagIcon } from "@heroicons/react/24/outline";
+import { TagIcon, HomeIcon } from "@heroicons/react/24/outline";
 
 const TopicSelector = ({ onSelect }) => {
   const { topicsList, setTopicsList } = useContext(TopicsListContext);
@@ -31,12 +31,17 @@ const TopicSelector = ({ onSelect }) => {
   return (
     <>
       <div className="flex pb-2">
-        <TagIcon className="inline-block h-6 pb-1 pr-4 text-gray-900" />
-        <span className="inline-block">Topics</span>
+        <Link
+          className="hover:text-brand-secondary text-nowrap text-lg hover:underline"
+          to="/"
+        >
+          <TagIcon className="inline-block h-6 pb-1 pr-4 text-gray-900" />
+          All topics
+        </Link>
       </div>
       <ul>
         {topicsList.map((topic) => (
-          <li key={topic.slug} className="ml-12 pb-1 text-sm capitalize">
+          <li key={topic.slug} className="ml-12 pb-1 text-base capitalize">
             <Link
               className="hover:text-brand-secondary hover:underline"
               onClick={onSelect}
