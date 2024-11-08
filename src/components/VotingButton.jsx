@@ -2,6 +2,7 @@ import {
   HandThumbUpIcon,
   HandThumbDownIcon,
 } from "@heroicons/react/24/outline";
+
 import {
   VOTE_DIRECTION_UP,
   VOTE_DIRECTION_DOWN,
@@ -42,7 +43,8 @@ const VotingButton = ({ direction, onVoteClick, votingStatus }) => {
       title={buttonTitle}
       onClick={() => {
         onVoteClick(voteAmount);
-      }}>
+      }}
+    >
       {getIcon(direction)}
     </button>
   );

@@ -31,16 +31,17 @@ const TopicSelector = ({ onSelect }) => {
   return (
     <>
       <div className="flex pb-2">
-        <TagIcon className="text-gray-900 h-6 inline-block pb-1 pr-4" />
+        <TagIcon className="inline-block h-6 pb-1 pr-4 text-gray-900" />
         <span className="inline-block">Topics</span>
       </div>
       <ul>
         {topicsList.map((topic) => (
-          <li key={topic.slug} className="ml-12 capitalize text-sm pb-1">
+          <li key={topic.slug} className="ml-12 pb-1 text-sm capitalize">
             <Link
-              className="hover:underline"
+              className="hover:text-brand-secondary hover:underline"
               onClick={onSelect}
-              to={`/?topic=${topic.slug}`}>
+              to={`/?topic=${topic.slug}`}
+            >
               {topic.slug}
             </Link>
           </li>

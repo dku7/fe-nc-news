@@ -7,9 +7,13 @@
 }
 
 .sort-button__icon--selected {
-  @apply size-6 text-white bg-gray-400 rounded;
+  @apply bg-brand-tertiary size-6 rounded text-gray-100;
 }
 
 .article__author {
   @apply pr-5 font-semibold;
+}
+
+.login-button {
+  @apply text-brand-primary hover:bg-brand-tertiary w-20 rounded bg-white text-sm hover:text-white;
 }

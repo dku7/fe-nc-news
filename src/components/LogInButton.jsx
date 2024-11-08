@@ -13,18 +13,14 @@ const LogInButton = () => {
   const signIn = () => navigateTo("/login");
 
   const notLoggedIn = (
-    <button
-      className="w-20 text-sm font-extralight border-gray-200 bg-gray-200 rounded  mt-2 mr-4 text-sky-700"
-      onClick={signIn}>
+    <button className="login-button mr-4 mt-2" onClick={signIn}>
       Log in
     </button>
   );
   const loggedIn = (
-    <div className="w-36 text-right mr-4">
-      <p className="text-gray-200 text-sm font-extralight">{`Hello, ${loggedInUser?.name}`}</p>
-      <button
-        className="w-20 text-sm font-extralight border-gray-200 bg-gray-200 rounded text-sky-700"
-        onClick={signOut}>
+    <div className="mr-4 w-36 text-right">
+      <p className="mb-2 text-sm font-extralight text-gray-200">{`Hello, ${loggedInUser?.username}`}</p>
+      <button className="login-button" onClick={signOut}>
         Sign Out
       </button>
     </div>

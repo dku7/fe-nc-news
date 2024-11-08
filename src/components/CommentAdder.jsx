@@ -8,11 +8,6 @@ import {
 import { postNewComment } from "../services/api";
 
 const CommentAdder = ({ article_id, updateCommentsList }) => {
-  const DISABLED_BUTTON_CLASS =
-    "border rounded px-4 bg-gray-100 text-gray-800 mb-2";
-  const ENABLED_BUTTON_CLASS =
-    "border rounded px-4 bg-gray-800 text-white mb-2";
-
   const { loggedInUser } = useContext(LoggedInUserContext);
   const [comment, setComment] = useState("");
   const [commentStatus, setCommentStatus] = useState("");
@@ -50,7 +45,10 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
     loggedInUser ? (
       <button
         className={
-          isPostingEnabled ? ENABLED_BUTTON_CLASS : DISABLED_BUTTON_CLASS
+          "mb-2 rounded border px-4 " +
+          (isPostingEnabled
+            ? "bg-brand-primary hover:bg-brand-tertiary text-white hover:text-white"
+            : " bg-gray-100 text-gray-800")
         }
         type="submit"
         disabled={!isPostingEnabled}
