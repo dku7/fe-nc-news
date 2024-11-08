@@ -11,9 +11,12 @@ import {
   QUERY_PARAM_DEFAULT_SORT_BY_VALUE,
   QUERY_PARAM_ORDER_BY,
   QUERY_PARAM_DEFAULT_ORDER_BY_VALUE,
+  QUERY_PARAM_LIMIT,
+  QUERY_PARAM_DEFAULT_LIMIT,
+  QUERY_PARAM_PAGE,
+  QUERY_PARAM_DEFAULT_PAGE,
 } from "../utils/constants";
-
-const DEFAULT_LIMIT = 1000;
+import Paginator from "./Paginator";
 
 const parseQueryParams = (searchParams) => {
   const queryTopic = searchParams.get("topic");
@@ -22,12 +25,17 @@ const parseQueryParams = (searchParams) => {
   const queryOrderBy =
     searchParams.get(QUERY_PARAM_ORDER_BY) ??
     QUERY_PARAM_DEFAULT_ORDER_BY_VALUE;
+  const queryLimit =
+    searchParams.get(QUERY_PARAM_LIMIT) ?? QUERY_PARAM_DEFAULT_LIMIT;
+  const queryPage =
+    searchParams.get(QUERY_PARAM_PAGE) ?? QUERY_PARAM_DEFAULT_PAGE;
 
   return {
     topic: queryTopic,
     [QUERY_PARAM_SORT_BY]: querySortBy,
     [QUERY_PARAM_ORDER_BY]: queryOrderBy,
-    limit: DEFAULT_LIMIT,
+    [QUERY_PARAM_LIMIT]: queryLimit,
+    [QUERY_PARAM_PAGE]: queryPage,
   };
 };
 
@@ -41,15 +49,37 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
   const [topic, setTopic] = useState({});
   const [sortBy, setSortBy] = useState(QUERY_PARAM_DEFAULT_SORT_BY_VALUE);
   const [orderBy, setOrderBy] = useState(QUERY_PARAM_DEFAULT_ORDER_BY_VALUE);
+  const [limit, setLimit] = useState(QUERY_PARAM_DEFAULT_LIMIT);
+  const [page, setPage] = useState(1);
 
-  const handleSortChange = (param, value) => {
+  const getNewSearchParams = (existingParams, param, value) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set(param, value);
+    return newParams;
 
+    //setSearchParams(newParams);
+  };
+
+  const handleSortChange = (param, value) => {
+    // const newParams = new URLSearchParams(searchParams);
+    // newParams.set(param, value);
+    const newParams = getNewSearchParams(searchParams, param, value);
     setSearchParams(newParams);
 
     if (param === QUERY_PARAM_SORT_BY) setSortBy(value);
     else if (param === QUERY_PARAM_ORDER_BY) setOrderBy(value);
+  };
+
+  const handlePageChange = (change) => {
+    const newParams = getNewSearchParams(
+      searchParams,
+      QUERY_PARAM_PAGE,
+      Number(page) + Number(change),
+    );
+    setSearchParams(newParams);
+    setPage((curPage) => {
+      curPage + change;
+    });
   };
 
   useEffect(() => {
@@ -61,6 +91,8 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
 
     setSortBy(queryParams[QUERY_PARAM_SORT_BY]);
     setOrderBy(queryParams[QUERY_PARAM_ORDER_BY]);
+    setLimit(queryParams[QUERY_PARAM_LIMIT]);
+    setPage(queryParams[QUERY_PARAM_PAGE]);
 
     if (queryTopic) {
       const foundTopic = topicsList.find((topic) => topic.slug === queryTopic);
@@ -81,33 +113,38 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
   }, [searchParams]);
 
   if (isLoading) return <LoadingDisplay />;
-
   if (isError) return <ErrorDisplay />;
 
   return (
-    <div className="mx-2 mt-4 md:mx-10 lg:mx-28">
-      <main>
-        <header>
-          <h2 className="text-xl font-semibold capitalize md:text-3xl">
-            {topic?.slug ?? "All articles"}
-          </h2>
-          <p className="py-2 text-sm lowercase text-gray-700">
-            {topic?.description}
-          </p>
-        </header>
-        <div className="my-4">
-          <ArticleSorter
-            sortBy={sortBy}
-            orderBy={orderBy}
-            handleSortChange={handleSortChange}
-          />
-        </div>
-        <div className="flex flex-wrap">
-          {articles.map((article) => (
-            <ArticleCard key={article.article_id} article={article} />
-          ))}
-        </div>
-      </main>
+    <div>
+      <div className="mx-2 mt-4 md:mx-10 lg:mx-28">
+        <main>
+          <header>
+            <h2 className="text-xl font-semibold capitalize md:text-3xl">
+              {topic?.slug ?? "All articles"}
+            </h2>
+            <p className="py-2 text-sm lowercase text-gray-700">
+              {topic?.description}
+            </p>
+          </header>
+          <div className="my-4">
+            <ArticleSorter
+              sortBy={sortBy}
+              orderBy={orderBy}
+              handleSortChange={handleSortChange}
+            />
+          </div>
+          <div className="flex flex-wrap">
+            {articles.map((article) => (
+              <ArticleCard key={article.article_id} article={article} />
+            ))}
+          </div>
+        </main>
+      </div>
+      <div className="mx-2 mt-4 flex justify-end md:mx-10 lg:mx-28">
+        {/* </div><div className="mr-8 mt-10 flex justify-end"> */}
+        <Paginator handlePageChange={handlePageChange} />
+      </div>
     </div>
   );
 };
