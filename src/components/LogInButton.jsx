@@ -16,7 +16,7 @@ const LogInButton = () => {
   const signIn = () => navigateTo("/login");
 
   const notLoggedIn = (
-    <button className="login-button mr-4 mt-2" onClick={signIn}>
+    <button className="login-button mr-4 mt-2 text-nowrap p-1" onClick={signIn}>
       {isSmallScreen ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ const LogInButton = () => {
       <span className="mb-2 text-xs font-extralight text-gray-200 md:text-sm">
         {loggedInUser?.username}
       </span>
-      <button className="login-button mr-4 mt-2" onClick={signOut}>
+      <button className="login-button mt-2 text-nowrap p-1" onClick={signOut}>
         {isSmallScreen ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
