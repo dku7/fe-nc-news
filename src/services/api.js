@@ -15,9 +15,9 @@ export const getArticleById = (article_id) =>
     .get(`/api/articles/${article_id}`)
     .then((response) => response.data.article);
 
-export const getArticleComments = (article_id) =>
+export const getArticleComments = (article_id, limit, page) =>
   apiClient
-    .get(`/api/articles/${article_id}/comments`)
+    .get(`/api/articles/${article_id}/comments?limit=${limit}&p=${page}`)
     .then((response) => response.data.comments);
 
 export const patchArticleVotes = (article_id, amount) =>
