@@ -85,13 +85,13 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
   if (isError) return <ErrorDisplay />;
 
   return (
-    <div className="m-5">
+    <div className="mx-2 mt-4 md:mx-10 lg:mx-32">
       <main>
         <header>
-          <h2 className="text-xl md:text-3xl font-semibold capitalize">
+          <h2 className="text-xl font-semibold capitalize md:text-3xl">
             {topic?.slug ?? "All articles"}
           </h2>
-          <p className="py-2 text-sm text-gray-700 lowercase">
+          <p className="py-2 text-sm lowercase text-gray-700">
             {topic?.description}
           </p>
         </header>
