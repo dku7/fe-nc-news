@@ -23,11 +23,11 @@ const MainContainer = ({ children, searchParams, article }) => {
 
     const showMenuAndContent = () => (
       <>
-        <div className="hidden md:block col-span-1 row-start-2 border-r border-gray-200">
+        <div className="col-span-1 row-start-2 hidden border-r border-gray-200 md:block">
           <Menu handleMenuOpen={handleMenuOpen} />
         </div>
 
-        <div className="col-span-2 md:col-span-1 row-start-2 flex justify-center">
+        <div className="col-span-2 row-start-2 flex justify-center md:col-span-1">
           {children}
         </div>
       </>
@@ -38,7 +38,7 @@ const MainContainer = ({ children, searchParams, article }) => {
 
   return (
     <div className="grid grid-cols-[200px_auto] grid-rows-[112px_auto]">
-      <div className="col-span-2 row-start-1 sticky top-0">
+      <div className="sticky top-0 col-span-2 row-start-1">
         <Header isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
       </div>
       {content}

@@ -115,7 +115,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
 
   return (
     <div>
-      <div className="mx-2 mt-4 md:mx-10 lg:mx-28">
+      <div className="mx-5 mt-4 lg:mx-12 xl:mx-16 2xl:mx-28">
         <main>
           <header>
             <h2 className="text-xl font-semibold capitalize md:text-3xl">
@@ -139,7 +139,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
           </div>
         </main>
       </div>
-      <div className="mx-2 mb-10 mt-4 flex justify-end md:mx-10 lg:mx-28">
+      <div className="mx-6 mb-10 mt-4 flex lg:mx-14 xl:-mx-16 2xl:mx-32">
         <Paginator
           handlePageChange={handlePageChange}
           currentPage={page}

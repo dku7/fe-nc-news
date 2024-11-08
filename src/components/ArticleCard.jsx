@@ -3,7 +3,7 @@ import { formatDateTime } from "../utils/utils";
 import { Link } from "react-router-dom";
 
 const ArticleCard = ({ article }) => (
-  <div className="h-[424px] w-full md:w-1/2 lg:w-1/3 lg:min-w-[340px]">
+  <div className="h-[424px] w-full md:w-1/2 lg:w-1/3 lg:min-w-[340px] xl:w-1/4">
     <div className="m-4 h-fit overflow-hidden rounded-md bg-white shadow-md hover:shadow-2xl">
       <Link
         aria-label={`Read more about ${article.title}`}
