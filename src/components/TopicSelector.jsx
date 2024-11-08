@@ -33,6 +33,7 @@ const TopicSelector = ({ onSelect }) => {
       <div className="flex pb-2">
         <Link
           className="hover:text-brand-secondary text-nowrap text-lg hover:underline"
+          onClick={onSelect}
           to="/"
         >
           <TagIcon className="inline-block h-6 pb-1 pr-4 text-gray-900" />
