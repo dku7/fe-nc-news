@@ -138,13 +138,14 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
             ))}
           </div>
         </main>
-      </div>
-      <div className="mx-6 mb-10 mt-4 flex lg:mx-14 xl:-mx-16 2xl:mx-32">
-        <Paginator
-          handlePageChange={handlePageChange}
-          currentPage={page}
-          isLastPage={isLastPage}
-        />
+
+        <div className="ml-4">
+          <Paginator
+            handlePageChange={handlePageChange}
+            currentPage={page}
+            isLastPage={isLastPage}
+          />
+        </div>
       </div>
     </div>
   );
