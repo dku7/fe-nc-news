@@ -85,7 +85,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
   if (isError) return <ErrorDisplay />;
 
   return (
-    <div className="mx-2 mt-4 md:mx-10 lg:mx-32">
+    <div className="mx-2 mt-4 md:mx-10 lg:mx-28">
       <main>
         <header>
           <h2 className="text-xl font-semibold capitalize md:text-3xl">
