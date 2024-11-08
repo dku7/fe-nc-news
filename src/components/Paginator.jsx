@@ -4,7 +4,6 @@ const Paginator = ({ handlePageChange, currentPage, isLastPage }) => {
   const handlePrevPage = () => handlePageChange(-1);
   const handleNextPage = () => handlePageChange(1);
 
-  console.log(currentPage);
   return (
     <div class="mt-10 flex">
       <div className="mr-4">
