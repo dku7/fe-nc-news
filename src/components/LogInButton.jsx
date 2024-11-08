@@ -42,7 +42,10 @@ const LogInButton = () => {
       <span className="mb-2 text-xs font-extralight text-gray-200 md:text-sm">
         {loggedInUser?.username}
       </span>
-      <button className="login-button mt-2 text-nowrap p-1" onClick={signOut}>
+      <button
+        className="login-button ml-2 mt-2 text-nowrap p-1"
+        onClick={signOut}
+      >
         {isSmallScreen ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
