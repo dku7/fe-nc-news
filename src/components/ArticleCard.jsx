@@ -16,17 +16,19 @@ const ArticleCard = ({ article }) => (
         />
       </Link>
       <div className="px-4 py-2">
-        <heading className="mb-2 min-h-20">
-          <h2>
-            <Link
-              className="hover:text-brand-secondary line-clamp-3 font-semibold hover:underline"
-              aria-label={`Read more about ${article.title}`}
-              to={`/articles/${article.article_id}`}
-            >
-              {article.title}
-            </Link>
-          </h2>
-        </heading>
+        <div className="mb-2 min-h-20">
+          <heading>
+            <h2>
+              <Link
+                className="hover:text-brand-secondary font-semibold hover:underline md:line-clamp-2"
+                aria-label={`Read more about ${article.title}`}
+                to={`/articles/${article.article_id}`}
+              >
+                {article.title}
+              </Link>
+            </h2>
+          </heading>
+        </div>
         <div>
           <Link
             className="text-brand-secondary mb-2 hover:underline"
