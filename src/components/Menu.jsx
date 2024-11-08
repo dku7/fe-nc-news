@@ -8,7 +8,7 @@ const Menu = ({ handleMenuOpen }) => (
       <li>
         <div className="flex pb-2">
           <Link
-            className="hover:text-brand-secondary hover:underline"
+            className="hover:text-brand-secondary text-lg hover:underline"
             onClick={handleMenuOpen}
             to="/"
           >
@@ -17,7 +17,9 @@ const Menu = ({ handleMenuOpen }) => (
           </Link>
         </div>
       </li>
-      <TopicSelector onSelect={handleMenuOpen} />
+      <li>
+        <TopicSelector onSelect={handleMenuOpen} />
+      </li>
     </ul>
   </nav>
 );
