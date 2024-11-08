@@ -11,7 +11,8 @@ module.exports = {
         "brand-tertiary": "#e59500",
       },
       fontFamily: {
-        sans: ["Poppins", ...defaultTheme.fontFamily.sans],
+        headings: ["Montserrat", ...defaultTheme.fontFamily.sans],
+        sans: ["Inter", ...defaultTheme.fontFamily.sans],
       },
     },
   },

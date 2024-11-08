@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  @apply font-headings;
+}
 .sort-button__icon--unselected {
   @apply size-6 text-black;
 }
