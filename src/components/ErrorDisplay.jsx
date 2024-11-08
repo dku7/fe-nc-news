@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import unamusedDog from "../assets/unamused-dog.jpg";
+import wrongSheep from "../assets/wrong-sheep.jpg";
 
 const ErrorDisplay = () => (
   <>
@@ -8,9 +7,9 @@ const ErrorDisplay = () => (
         <h2 className="font-bold text-2xl">Oh no! Something went wrong</h2>
       </header>
       <img
-        className="h-2/3 lg:h-1/2 block mx-auto my-20"
-        src={unamusedDog}
-        alt="an unamused looking dog"
+        className="w-2/3 lg:w-1/2 block mx-auto my-20"
+        src={wrongSheep}
+        alt="as sheep in front of a blackboard"
       />
     </main>
   </>
