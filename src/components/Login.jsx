@@ -27,10 +27,6 @@ const Login = () => {
       <Header />
       <div className="mt-40 flex h-screen justify-center">
         <div className="w-2/3 md:w-1/3">
-          <p className="mb-10">
-            This form is for demonstration purposes only. Just click login to
-            get started.
-          </p>
           <form onSubmit={handleLogin}>
             <fieldset className="rounded border px-4 pb-8 pt-4">
               <label htmlFor="username">Username:</label>
