@@ -22,5 +22,5 @@ h5 {
 }
 
 .login-button {
-  @apply text-brand-primary hover:bg-brand-tertiary w-20 rounded bg-white text-sm hover:text-white;
+  @apply text-brand-primary hover:bg-brand-tertiary rounded bg-white text-sm hover:text-white;
 }

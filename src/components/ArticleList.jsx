@@ -54,7 +54,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
   const [isLastPage, setIsLastPage] = useState(false);
 
   const getNewSearchParams = (existingParams, param, value) => {
-    const newParams = new URLSearchParams(searchParams);
+    const newParams = new URLSearchParams(existingParams);
     newParams.set(param, value);
     return newParams;
   };
@@ -139,7 +139,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
           </div>
         </main>
       </div>
-      <div className="mx-2 mt-4 flex justify-end md:mx-10 lg:mx-28">
+      <div className="mx-2 mb-10 mt-4 flex justify-end md:mx-10 lg:mx-28">
         <Paginator
           handlePageChange={handlePageChange}
           currentPage={page}
