@@ -6,7 +6,10 @@ const LogInButton = () => {
   const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
   const navigateTo = useNavigate();
 
-  const signOut = () => setLoggedInUser(null);
+  const signOut = () => {
+    setLoggedInUser(null);
+    localStorage.removeItem("loggedInUser");
+  };
   const signIn = () => navigateTo("/login");
 
   const notLoggedIn = (

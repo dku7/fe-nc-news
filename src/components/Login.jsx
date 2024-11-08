@@ -18,6 +18,7 @@ const Login = () => {
   const handleLogin = (event) => {
     event.preventDefault();
     setLoggedInUser(defaultUser);
+    localStorage.setItem("loggedInUser", JSON.stringify(defaultUser));
     navigateTo(-1);
   };
 
