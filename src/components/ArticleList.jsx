@@ -51,18 +51,15 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
   const [orderBy, setOrderBy] = useState(QUERY_PARAM_DEFAULT_ORDER_BY_VALUE);
   const [limit, setLimit] = useState(QUERY_PARAM_DEFAULT_LIMIT);
   const [page, setPage] = useState(1);
+  const [isLastPage, setIsLastPage] = useState(false);
 
   const getNewSearchParams = (existingParams, param, value) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set(param, value);
     return newParams;
-
-    //setSearchParams(newParams);
   };
 
   const handleSortChange = (param, value) => {
-    // const newParams = new URLSearchParams(searchParams);
-    // newParams.set(param, value);
     const newParams = getNewSearchParams(searchParams, param, value);
     setSearchParams(newParams);
 
@@ -70,15 +67,15 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
     else if (param === QUERY_PARAM_ORDER_BY) setOrderBy(value);
   };
 
-  const handlePageChange = (change) => {
+  const handlePageChange = (step) => {
     const newParams = getNewSearchParams(
       searchParams,
       QUERY_PARAM_PAGE,
-      Number(page) + Number(change),
+      Number(page) + Number(step),
     );
     setSearchParams(newParams);
     setPage((curPage) => {
-      curPage + change;
+      curPage + step;
     });
   };
 
@@ -104,6 +101,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
     getArticles(queryParams)
       .then((articles) => {
         setArticles(articles);
+        setIsLastPage(articles.length < limit);
         setIsLoading(false);
       })
       .catch(() => {
@@ -142,8 +140,11 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
         </main>
       </div>
       <div className="mx-2 mt-4 flex justify-end md:mx-10 lg:mx-28">
-        {/* </div><div className="mr-8 mt-10 flex justify-end"> */}
-        <Paginator handlePageChange={handlePageChange} />
+        <Paginator
+          handlePageChange={handlePageChange}
+          currentPage={page}
+          isLastPage={isLastPage}
+        />
       </div>
     </div>
   );
