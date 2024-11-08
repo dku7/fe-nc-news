@@ -18,7 +18,7 @@ const Login = () => {
   const handleLogin = (event) => {
     event.preventDefault();
     setLoggedInUser(defaultUser);
-    navigateTo("/");
+    navigateTo(-1);
   };
 
   return (
