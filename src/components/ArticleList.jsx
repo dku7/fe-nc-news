@@ -32,7 +32,7 @@ const parseQueryParams = (searchParams) => {
 };
 
 const ArticleList = ({ searchParams, setSearchParams }) => {
-  const redirect = useNavigate();
+  const navigateTo = useNavigate();
   const { topicsList } = useContext(TopicsListContext);
 
   const [articles, setArticles] = useState([]);
@@ -66,7 +66,7 @@ const ArticleList = ({ searchParams, setSearchParams }) => {
       const foundTopic = topicsList.find((topic) => topic.slug === queryTopic);
       setTopic(foundTopic);
 
-      if (!foundTopic) redirect("/notfound");
+      if (!foundTopic) navigateTo("/notfound");
     } else setTopic(null);
 
     getArticles(queryParams)

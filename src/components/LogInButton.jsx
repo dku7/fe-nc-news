@@ -4,10 +4,10 @@ import { LoggedInUserContext } from "../contexts/LoggedInUser";
 
 const LogInButton = () => {
   const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
-  const redirect = useNavigate();
+  const navigateTo = useNavigate();
 
   const signOut = () => setLoggedInUser(null);
-  const signIn = () => redirect("/login");
+  const signIn = () => navigateTo("/login");
 
   const notLoggedIn = (
     <button

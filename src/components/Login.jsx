@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const redirect = useNavigate();
+  const navigateTo = useNavigate();
   const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
   const [password, setPassword] = useState("password");
 
@@ -18,7 +18,7 @@ const Login = () => {
   const handleLogin = (event) => {
     event.preventDefault();
     setLoggedInUser(defaultUser);
-    redirect("/");
+    navigateTo("/");
   };
 
   return (
