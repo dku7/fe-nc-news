@@ -53,7 +53,7 @@ const CommentsList = ({ article_id }) => {
         </div>
 
         {isLoading && <LoadingDisplay />}
-        {isError && <ErrorDisplay />}
+        {isError && <p>There was an error loading comments for the article.</p>}
 
         <div>
           {comments.map((comment) => (

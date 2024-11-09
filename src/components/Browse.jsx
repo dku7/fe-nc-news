@@ -49,7 +49,7 @@ const Browse = () => {
 
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState(null);
   const [topic, setTopic] = useState({});
   const [sortBy, setSortBy] = useState(QUERY_PARAM_DEFAULT_SORT_BY_VALUE);
   const [orderBy, setOrderBy] = useState(QUERY_PARAM_DEFAULT_ORDER_BY_VALUE);
@@ -85,7 +85,7 @@ const Browse = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    setIsError(false);
+    setError(null);
 
     const queryParams = parseQueryParams(searchParams);
     const queryTopic = queryParams.topic;
@@ -108,14 +108,14 @@ const Browse = () => {
         setIsLastPage(articles.length < limit);
         setIsLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
         setIsLoading(false);
-        setIsError(true);
+        setError(error);
       });
   }, [searchParams]);
 
   if (isLoading) return <LoadingDisplay />;
-  if (isError) return <ErrorDisplay />;
+  if (error) return <ErrorDisplay error={error} />;
 
   return (
     <MainContainer searchParams={searchParams}>
