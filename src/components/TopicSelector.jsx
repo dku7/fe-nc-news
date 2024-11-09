@@ -34,7 +34,7 @@ const TopicSelector = ({ onSelect }) => {
         <Link
           className="hover:text-brand-secondary text-nowrap text-lg hover:underline"
           onClick={onSelect}
-          to="/"
+          to="/browse"
         >
           <TagIcon className="inline-block h-6 pb-1 pr-4 text-gray-900" />
           All topics
@@ -46,7 +46,7 @@ const TopicSelector = ({ onSelect }) => {
             <Link
               className="hover:text-brand-secondary hover:underline"
               onClick={onSelect}
-              to={`/?topic=${topic.slug}`}
+              to={`/browse?topic=${topic.slug}`}
             >
               {topic.slug}
             </Link>
