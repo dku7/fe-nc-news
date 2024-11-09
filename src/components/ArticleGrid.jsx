@@ -120,7 +120,7 @@ const ArticleGrid = ({ searchParams, setSearchParams }) => {
           <header>
             <h2 className="text-xl font-bold capitalize md:text-2xl lg:text-3xl">
               <span className="border-brand-tertiary border-b-2">
-                {topic?.slug ?? "All articles"}
+                {topic?.slug ?? "All topics"}
               </span>
             </h2>
             <p className="py-2 text-sm lowercase text-gray-700">
