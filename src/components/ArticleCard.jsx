@@ -29,7 +29,7 @@ const ArticleCard = ({ article }) => (
         </div>
         <div>
           <Link
-            className="text-brand-secondary mb-2 hover:underline"
+            className="text-brand-secondary mb-2 text-sm capitalize hover:underline"
             aria-label={`Read more articles on ${article.topic}`}
             to={`/browse?topic=${article.topic}`}
           >

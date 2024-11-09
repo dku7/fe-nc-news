@@ -56,7 +56,7 @@ const Home = () => {
               </span>
             </h3>
             <div className="border-l-0 border-gray-100 md:border-l md:px-5">
-              <ArticleList articles={suggested} />
+              <ArticleList articles={suggested} showTopic={true} />
             </div>
           </div>
         </div>

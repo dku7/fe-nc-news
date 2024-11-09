@@ -45,7 +45,7 @@ const ArticleHeader = ({ article, canClickTitle }) => {
       </header>
       <div>
         <Link
-          className="text-brand-secondary mb-2 hover:underline"
+          className="text-brand-secondary mb-2 capitalize hover:underline"
           to={`/browse?topic=${article.topic}`}
         >
           {article.topic}
