@@ -40,7 +40,9 @@ const CommentsList = ({ article_id }) => {
     <>
       <section className="mt-10">
         <header className="mb-4">
-          <h2 className="text-xl font-bold">Comments</h2>
+          <h2 className="text-xl font-bold">
+            <span className="border-brand-tertiary border-b-2">Comments</span>
+          </h2>
         </header>
 
         <div className="mb-10">
