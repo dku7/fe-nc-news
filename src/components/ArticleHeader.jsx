@@ -1,7 +1,7 @@
 import { formatDateTime } from "../utils/utils";
 import { Link } from "react-router-dom";
 
-const ArticleHeader = ({ article }) => (
+const ArticleHeader = ({ article, canClickTitle }) => (
   <div>
     <img
       className="w-full rounded-t-md object-cover"
@@ -10,7 +10,18 @@ const ArticleHeader = ({ article }) => (
     />
 
     <header>
-      <h2 className="my-4 text-2xl font-bold">{article.title}</h2>
+      <h2 className="my-4 text-2xl font-bold">
+        {canClickTitle ? (
+          <Link
+            className="hover:text-brand-secondary hover:underline"
+            to={`/articles/${article.article_id}`}
+          >
+            {article.title}
+          </Link>
+        ) : (
+          article.title
+        )}
+      </h2>
     </header>
     <div>
       <Link
