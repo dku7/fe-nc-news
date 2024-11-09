@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
+import Browse from "./components/Browse";
 import Article from "./components/Article";
 import Login from "./components/Login";
 import NotFound from "./components/NotFound";
@@ -13,7 +14,7 @@ const App = () => {
 
   useEffect(() => {
     const previouslyLoggedInUser = JSON.parse(
-      localStorage.getItem("loggedInUser")
+      localStorage.getItem("loggedInUser"),
     );
     setLoggedInUser(previouslyLoggedInUser);
 
@@ -27,6 +28,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/browse" element={<Browse />} />
       <Route path="/articles/:article_id" element={<Article />} />
       <Route path="/login" element={<Login />} />
       <Route path="/notfound" element={<NotFound />} />

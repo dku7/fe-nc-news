@@ -1,6 +1,8 @@
 import { useEffect, useState, useContext } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getArticles } from "../services/api";
+import MainContainer from "./MainContainer";
 import LoadingDisplay from "./LoadingDisplay";
 import ErrorDisplay from "./ErrorDisplay";
 import ArticleCard from "./ArticleCard";
@@ -39,7 +41,9 @@ const parseQueryParams = (searchParams) => {
   };
 };
 
-const ArticleGrid = ({ searchParams, setSearchParams }) => {
+const Browse = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const navigateTo = useNavigate();
   const { topicsList } = useContext(TopicsListContext);
 
@@ -114,43 +118,45 @@ const ArticleGrid = ({ searchParams, setSearchParams }) => {
   if (isError) return <ErrorDisplay />;
 
   return (
-    <div>
-      <div className="mx-5 mt-4 lg:mx-12 xl:mx-16 2xl:mx-28">
-        <main>
-          <header>
-            <h2 className="text-xl font-bold capitalize md:text-2xl lg:text-3xl">
-              <span className="border-brand-tertiary border-b-2">
-                {topic?.slug ?? "All articles"}
-              </span>
-            </h2>
-            <p className="py-2 text-sm lowercase text-gray-700">
-              {topic?.description}
-            </p>
-          </header>
-          <div className="my-4">
-            <ArticleSorter
-              sortBy={sortBy}
-              orderBy={orderBy}
-              handleSortChange={handleSortChange}
+    <MainContainer searchParams={searchParams}>
+      <div>
+        <div className="mx-5 mt-4 lg:mx-12 xl:mx-16 2xl:mx-28">
+          <main>
+            <header>
+              <h2 className="text-xl font-bold capitalize md:text-2xl lg:text-3xl">
+                <span className="border-brand-tertiary border-b-2">
+                  {topic?.slug ?? "All topics"}
+                </span>
+              </h2>
+              <p className="py-2 text-sm lowercase text-gray-700">
+                {topic?.description}
+              </p>
+            </header>
+            <div className="my-4">
+              <ArticleSorter
+                sortBy={sortBy}
+                orderBy={orderBy}
+                handleSortChange={handleSortChange}
+              />
+            </div>
+            <div className="flex flex-wrap">
+              {articles.map((article) => (
+                <ArticleCard key={article.article_id} article={article} />
+              ))}
+            </div>
+          </main>
+
+          <div className="ml-4">
+            <Paginator
+              handlePageChange={handlePageChange}
+              currentPage={page}
+              isLastPage={isLastPage}
             />
           </div>
-          <div className="flex flex-wrap">
-            {articles.map((article) => (
-              <ArticleCard key={article.article_id} article={article} />
-            ))}
-          </div>
-        </main>
-
-        <div className="ml-4">
-          <Paginator
-            handlePageChange={handlePageChange}
-            currentPage={page}
-            isLastPage={isLastPage}
-          />
         </div>
       </div>
-    </div>
+    </MainContainer>
   );
 };
 
-export default ArticleGrid;
+export default Browse;
