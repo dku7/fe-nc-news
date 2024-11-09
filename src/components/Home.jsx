@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import ArticleList from "./ArticleList";
+import ArticleGrid from "./ArticleGrid";
 import MainContainer from "./MainContainer";
 
 const Home = () => {
@@ -7,7 +7,7 @@ const Home = () => {
 
   return (
     <MainContainer searchParams={searchParams}>
-      <ArticleList
+      <ArticleGrid
         searchParams={searchParams}
         setSearchParams={setSearchParams}
       />
