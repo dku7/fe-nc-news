@@ -26,7 +26,7 @@ const TopicSelector = ({ onSelect }) => {
   }, []);
 
   if (isLoading) return <p>Loading topics...</p>;
-  if (isError) return <p>Could not load topics.</p>;
+  if (isError) return <p>There was an error loading topics.</p>;
 
   return (
     <>

@@ -14,7 +14,7 @@ const Home = () => {
   const [suggested, setSuggested] = useState([]);
   const [trending, setTrending] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const articlesQueryParams = {
@@ -23,7 +23,7 @@ const Home = () => {
       limit: 50,
     };
     setIsLoading(true);
-    setIsError(false);
+    setError(null);
 
     getArticles(articlesQueryParams)
       .then((articles) => {
@@ -32,14 +32,15 @@ const Home = () => {
         setTrending(articles.slice(10, 15));
         setIsLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         setIsLoading(false);
-        setIsError(true);
+        setError(error);
       });
   }, []);
 
   if (isLoading) return <LoadingDisplay />;
-  if (isError) return <ErrorDisplay />;
+  if (error) return <ErrorDisplay error={error} />;
 
   return (
     <MainContainer>
