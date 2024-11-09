@@ -8,6 +8,7 @@ import ErrorDisplay from "./ErrorDisplay";
 import CommentsList from "./CommentsList";
 import NotFound from "./NotFound";
 import MainContainer from "./MainContainer";
+import Related from "./Related";
 
 const Article = () => {
   const { article_id } = useParams();
@@ -30,7 +31,7 @@ const Article = () => {
         else setIsError(true);
         setIsLoading(false);
       });
-  }, []);
+  }, [article_id]);
 
   if (isLoading) return <LoadingDisplay />;
   if (isNotFound) return <NotFound />;
@@ -38,19 +39,24 @@ const Article = () => {
 
   return (
     <MainContainer article={article}>
-      <main className="mx-2 mt-4 w-full sm:px-8 md:mx-28 md:w-4/5 lg:mx-60">
-        <section>
-          <ArticleHeader article={article} />
-          <article className="py-4">
-            <p className="leading-relaxed tracking-wide">{article.body}</p>
-          </article>
-          <ArticleFooter article={article} votingEnabled={true} />
-        </section>
-        <hr />
-        <section>
-          <CommentsList article_id={article_id} />
-        </section>
-      </main>
+      <div className="flex flex-wrap justify-evenly px-5">
+        <main className="mt-4 w-full lg:w-3/5">
+          <section>
+            <ArticleHeader article={article} />
+            <article className="py-4">
+              <p className="leading-relaxed tracking-wide">{article.body}</p>
+            </article>
+            <ArticleFooter article={article} votingEnabled={true} />
+          </section>
+          <hr />
+          <section>
+            <CommentsList article_id={article_id} />
+          </section>
+        </main>
+        <aside className="mt-4 w-full lg:w-1/5">
+          <Related mainArticle={article} />
+        </aside>
+      </div>
     </MainContainer>
   );
 };
