@@ -31,7 +31,7 @@ const ArticleCard = ({ article }) => (
           <Link
             className="text-brand-secondary mb-2 hover:underline"
             aria-label={`Read more articles on ${article.topic}`}
-            to={`/?topic=${article.topic}`}
+            to={`/browse?topic=${article.topic}`}
           >
             {article.topic}
           </Link>
