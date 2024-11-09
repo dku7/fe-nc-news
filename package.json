@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build-css": "tailwindcss build -i src/input.css -o src/styles.css"
+    "build-css": "tailwindcss build -i src/input.css -o src/styles.css",
+    "tailwind-watch": "npx tailwindcss -i src/input.css -o src/styles.css --watch"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
