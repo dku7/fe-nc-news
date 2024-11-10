@@ -1,3 +1,9 @@
+// fetching articles
+export const FETCH_ARTICLES_INIT = "FETCH_ARTICLES_INIT";
+export const FETCH_ARTICLES_SET_HOME_ARTICLES = "SET_HOME_ARTICLES";
+export const FETCH_ARTICLES_SUCCESS = "FETCH_ARTICLES_SUCCESS";
+export const FETCH_ARTICLES_ERROR = "FETCH_ARTICLES_ERROR";
+
 // comment and article voting
 export const VOTE_DIRECTION_UP = "up";
 export const VOTE_DIRECTION_DOWN = "down";
