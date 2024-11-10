@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useReducer } from "react";
+import { useEffect, useContext, useReducer } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getArticles } from "../services/api";
@@ -11,7 +11,6 @@ import { TopicsListContext } from "../contexts/TopicsList";
 import {
   QUERY_PARAM_SORT_BY,
   QUERY_PARAM_ORDER_BY,
-  QUERY_PARAM_LIMIT,
   QUERY_PARAM_PAGE,
   FETCH_ARTICLES_ERROR,
   FETCH_ARTICLES_SET_BROWSE_RESULTS,
