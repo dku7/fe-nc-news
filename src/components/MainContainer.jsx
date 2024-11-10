@@ -31,6 +31,9 @@ const MainContainer = ({ children, searchParams, article }) => {
         <div className="col-span-2 row-start-2 flex justify-center md:col-span-1">
           {children}
         </div>
+        <div className="col-span-2 row-start-3 border-t bg-gray-100">
+          <Footer />
+        </div>
       </>
     );
 
@@ -43,9 +46,6 @@ const MainContainer = ({ children, searchParams, article }) => {
         <Header isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
       </div>
       {content}
-      <div className="col-span-2 row-start-3 border-t bg-gray-100">
-        <Footer />
-      </div>
     </div>
   );
 };
