@@ -34,13 +34,6 @@ const CommentFooter = ({ comment, updateCommentsList }) => {
       });
   };
 
-  // const displayVotingArea = () =>
-  //   votingEnabled ? (
-  //     <VotingBar article_id={article.article_id} currentVotes={article.votes} />
-  //   ) : (
-  //     <span className="ml-4">{article.votes} votes</span>
-  //   );
-
   const showDeleteButton = () => (
     <div className="text-right">
       <button
