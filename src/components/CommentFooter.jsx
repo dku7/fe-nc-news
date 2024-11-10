@@ -10,7 +10,7 @@ import {
 import { deleteComment } from "../services/api";
 import VotingBar from "./VotingBar";
 
-const CommentFooter = ({ comment, updateCommentsList }) => {
+const CommentFooter = ({ comment, handleDeleteCommentFromList }) => {
   const { loggedInUser } = useContext(LoggedInUserContext);
   const [deleteStatus, setDeleteStatus] = useState("");
   const [isDeleteEnabled, setIsDeleteEnabled] = useState(true);
@@ -21,11 +21,8 @@ const CommentFooter = ({ comment, updateCommentsList }) => {
 
     deleteComment(comment.comment_id)
       .then(() => {
-        updateCommentsList((currentList) =>
-          currentList.filter(
-            (listComment) => listComment.comment_id !== comment.comment_id,
-          ),
-        );
+        handleDeleteCommentFromList(comment.comment_id);
+
         setDeleteStatus(COMMENT_STATUS_DELETE_SUCCESSFUL);
       })
       .catch(() => {
@@ -41,7 +38,7 @@ const CommentFooter = ({ comment, updateCommentsList }) => {
         disabled={!isDeleteEnabled}
         onClick={handleDeleteComment}
       >
-        <XMarkIcon className="text-brand-secondary size-6" />
+        <XMarkIcon className="size-6 text-brand-secondary" />
       </button>
       <p>{deleteStatus}</p>
     </div>

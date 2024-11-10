@@ -50,5 +50,8 @@ export const articlesReducer = (state, action) => {
 
     case FETCH_ARTICLES_ERROR:
       return { ...state, isLoading: false, error: action.payload };
+
+    default:
+      throw new Error();
   }
 };

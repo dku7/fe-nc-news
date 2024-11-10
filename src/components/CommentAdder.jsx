@@ -8,7 +8,7 @@ import {
 import { postNewComment } from "../services/api";
 import { Link } from "react-router-dom";
 
-const CommentAdder = ({ article_id, updateCommentsList }) => {
+const CommentAdder = ({ article_id, handleAddCommentToList }) => {
   const { loggedInUser } = useContext(LoggedInUserContext);
   const [comment, setComment] = useState("");
   const [commentStatus, setCommentStatus] = useState("");
@@ -30,7 +30,7 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
 
     postNewComment(article_id, comment, loggedInUser.username)
       .then((newComment) => {
-        updateCommentsList((currentList) => [newComment, ...currentList]);
+        handleAddCommentToList(newComment);
 
         setCommentStatus(COMMENT_STATUS_POST_SUCCESSFUL);
         setIsPostingEnabled(true);
@@ -48,7 +48,7 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
         className={
           "mb-2 rounded border px-4 " +
           (isPostingEnabled
-            ? "bg-brand-primary hover:bg-brand-tertiary text-white hover:text-white"
+            ? "bg-brand-primary text-white hover:bg-brand-tertiary hover:text-white"
             : " bg-gray-100 text-gray-800")
         }
         type="submit"
@@ -60,7 +60,7 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
       <p>
         <Link
           to="/login"
-          className="hover:text-brand-secondary font-semibold hover:underline"
+          className="font-semibold hover:text-brand-secondary hover:underline"
         >
           Log in
         </Link>{" "}

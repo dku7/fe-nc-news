@@ -5,8 +5,12 @@ export const FETCH_ARTICLES_SET_BROWSE_RESULTS = "SET_BROWSE_ARTICLES";
 export const FETCH_BROWSE_ARTICLES_INIT = "FETCH_BROWSE_ARTICLES_INIT";
 export const FETCH_ARTICLES_BROWSE_PARAMS_UPDATE =
   "FETCH_ARTICLES_BROWSE_PARAMS_UPDATE";
-export const FETCH_ARTICLES_SUCCESS = "FETCH_ARTICLES_SUCCESS";
 export const FETCH_ARTICLES_ERROR = "FETCH_ARTICLES_ERROR";
+
+// fetching comments
+export const FETCH_COMMENTS_INIT = "FETCH_COMMENTS_INIT";
+export const FETCH_COMMENTS_SET_COMMENTS = "FETCH_COMMENTS_SET_COMMENTS";
+export const FETCH_COMMENTS_ERROR = "FETCH_COMMENTS_ERROR";
 
 // comment and article voting
 export const VOTE_DIRECTION_UP = "up";
@@ -20,6 +24,7 @@ export const VOTE_TYPE_ARTICLE = "article";
 export const VOTE_TYPE_COMMENT = "comment";
 
 // posting comments
+export const COMMENT_DISPATCH_ADD_NEW_COMMENT = "COMMENT_DISPATCH_NEW_COMMENT";
 export const COMMENT_STATUS_POST_IN_PROGRESS = "Adding your comment...";
 export const COMMENT_STATUS_POST_SUCCESSFUL =
   "Thank you for leaving your comment.";
@@ -27,6 +32,8 @@ export const COMMENT_STATUS_POST_UNSUCCESSFUL =
   "Sorry, your comment could not added. Please try again.";
 
 // deleting comments
+export const COMMENT_DISPATCH_DELETE_COMMENT =
+  "COMMENT_DISPATCH_DELETE_COMMENT";
 export const COMMENT_STATUS_DELETE_IN_PROGRESS = "Deleting...";
 export const COMMENT_STATUS_DELETE_SUCCESSFUL =
   "Your comment has been deleted.";
