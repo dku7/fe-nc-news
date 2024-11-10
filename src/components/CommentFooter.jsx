@@ -5,8 +5,10 @@ import {
   COMMENT_STATUS_DELETE_IN_PROGRESS,
   COMMENT_STATUS_DELETE_SUCCESSFUL,
   COMMENT_STATUS_DELETE_UNSUCCESSFUL,
+  VOTE_TYPE_COMMENT,
 } from "../utils/constants";
 import { deleteComment } from "../services/api";
+import VotingBar from "./VotingBar";
 
 const CommentFooter = ({ comment, updateCommentsList }) => {
   const { loggedInUser } = useContext(LoggedInUserContext);
@@ -32,6 +34,13 @@ const CommentFooter = ({ comment, updateCommentsList }) => {
       });
   };
 
+  // const displayVotingArea = () =>
+  //   votingEnabled ? (
+  //     <VotingBar article_id={article.article_id} currentVotes={article.votes} />
+  //   ) : (
+  //     <span className="ml-4">{article.votes} votes</span>
+  //   );
+
   const showDeleteButton = () => (
     <div className="text-right">
       <button
@@ -47,7 +56,13 @@ const CommentFooter = ({ comment, updateCommentsList }) => {
 
   return (
     <div className="flex justify-between">
-      <span className="">votes: {comment.votes}</span>
+      <div>
+        <VotingBar
+          recordType={VOTE_TYPE_COMMENT}
+          recordId={comment.comment_id}
+          currentVotes={comment.votes}
+        />
+      </div>
       {loggedInUser?.username === comment.author ? showDeleteButton() : null}
     </div>
   );

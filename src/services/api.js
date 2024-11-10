@@ -1,4 +1,5 @@
 import axios from "axios";
+import { comment } from "postcss";
 
 const apiClient = axios.create({
   baseURL: "https://nc-news-voyg.onrender.com",
@@ -24,6 +25,11 @@ export const patchArticleVotes = (article_id, amount) =>
   apiClient
     .patch(`/api/articles/${article_id}`, { inc_votes: amount })
     .then((response) => response.data.updatedArticle);
+
+export const patchCommentVotes = (comment_id, amount) =>
+  apiClient
+    .patch(`/api/comments/${comment_id}`, { inc_votes: amount })
+    .then((response) => response.data.updatedComment);
 
 export const postNewComment = (article_id, comment, username) =>
   apiClient

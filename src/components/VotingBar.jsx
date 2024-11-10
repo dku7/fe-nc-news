@@ -8,11 +8,13 @@ import {
   VOTE_STATUS_VOTE_SUCCESSFUL,
   VOTE_STATUS_VOTE_UNSUCCESSFUL,
   VOTE_STATUS_NOT_LOGGED_IN,
+  VOTE_TYPE_ARTICLE,
+  VOTE_TYPE_COMMENT,
 } from "../utils/constants";
-import { patchArticleVotes } from "../services/api";
+import { patchArticleVotes, patchCommentVotes } from "../services/api";
 import { LoggedInUserContext } from "../contexts/LoggedInUser";
 
-const VotingBar = ({ article_id, currentVotes }) => {
+const VotingBar = ({ recordType, recordId, currentVotes }) => {
   const { loggedInUser } = useContext(LoggedInUserContext);
   const [votes, setVotes] = useState(currentVotes);
   const [votingStatus, setVotingStatus] = useState("");
@@ -30,7 +32,17 @@ const VotingBar = ({ article_id, currentVotes }) => {
       setVotingStatus(VOTE_STATUS_VOTING_IN_PROGRESS);
       setVotes((cur) => cur + amount);
 
-      patchArticleVotes(article_id, amount)
+      let patchFunction;
+      switch (recordType) {
+        case VOTE_TYPE_ARTICLE:
+          patchFunction = patchArticleVotes(recordId, amount);
+          break;
+        case VOTE_TYPE_COMMENT:
+          patchFunction = patchCommentVotes(recordId, amount);
+          break;
+      }
+
+      patchFunction
         .then(() => {
           setVotingStatus(VOTE_STATUS_VOTE_SUCCESSFUL);
           setLastVoteDirection(
