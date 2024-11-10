@@ -36,7 +36,7 @@ const Home = () => {
       .then((fetchedArticles) =>
         dispatchArticles({
           type: FETCH_ARTICLES_SET_HOME_ARTICLES,
-          payload: fetchedArticles,
+          payload: { articles: fetchedArticles },
         }),
       )
       .catch((error) =>

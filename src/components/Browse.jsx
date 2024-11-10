@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useReducer } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getArticles } from "../services/api";
@@ -10,112 +10,82 @@ import ArticleSorter from "./ArticleSorter";
 import { TopicsListContext } from "../contexts/TopicsList";
 import {
   QUERY_PARAM_SORT_BY,
-  QUERY_PARAM_DEFAULT_SORT_BY_VALUE,
   QUERY_PARAM_ORDER_BY,
-  QUERY_PARAM_DEFAULT_ORDER_BY_VALUE,
   QUERY_PARAM_LIMIT,
-  QUERY_PARAM_DEFAULT_ARTICLE_LIMIT,
   QUERY_PARAM_PAGE,
-  QUERY_PARAM_DEFAULT_PAGE,
+  FETCH_ARTICLES_ERROR,
+  FETCH_ARTICLES_SET_BROWSE_RESULTS,
+  FETCH_BROWSE_ARTICLES_INIT,
+  FETCH_ARTICLES_BROWSE_PARAMS_UPDATE,
 } from "../utils/constants";
 import Paginator from "./Paginator";
-
-const parseQueryParams = (searchParams) => {
-  const queryTopic = searchParams.get("topic");
-  const querySortBy =
-    searchParams.get(QUERY_PARAM_SORT_BY) ?? QUERY_PARAM_DEFAULT_SORT_BY_VALUE;
-  const queryOrderBy =
-    searchParams.get(QUERY_PARAM_ORDER_BY) ??
-    QUERY_PARAM_DEFAULT_ORDER_BY_VALUE;
-  const queryLimit =
-    searchParams.get(QUERY_PARAM_LIMIT) ?? QUERY_PARAM_DEFAULT_ARTICLE_LIMIT;
-  const queryPage =
-    searchParams.get(QUERY_PARAM_PAGE) ?? QUERY_PARAM_DEFAULT_PAGE;
-
-  return {
-    topic: queryTopic,
-    [QUERY_PARAM_SORT_BY]: querySortBy,
-    [QUERY_PARAM_ORDER_BY]: queryOrderBy,
-    [QUERY_PARAM_LIMIT]: queryLimit,
-    [QUERY_PARAM_PAGE]: queryPage,
-  };
-};
+import { articlesReducer } from "../reducers/articles_reducers";
+import { parseQueryParams, addNewSearchParam } from "../utils/utils";
 
 const Browse = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
   const navigateTo = useNavigate();
   const { topicsList } = useContext(TopicsListContext);
-
-  const [articles, setArticles] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [topic, setTopic] = useState({});
-  const [sortBy, setSortBy] = useState(QUERY_PARAM_DEFAULT_SORT_BY_VALUE);
-  const [orderBy, setOrderBy] = useState(QUERY_PARAM_DEFAULT_ORDER_BY_VALUE);
-  const [limit, setLimit] = useState(QUERY_PARAM_DEFAULT_ARTICLE_LIMIT);
-  const [page, setPage] = useState(1);
-  const [isLastPage, setIsLastPage] = useState(false);
-
-  const getNewSearchParams = (existingParams, param, value) => {
-    const newParams = new URLSearchParams(existingParams);
-    newParams.set(param, value);
-    return newParams;
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [articles, dispatchArticles] = useReducer(articlesReducer, {
+    data: [],
+    isLoading: true,
+    error: null,
+    topic: {},
+    searchParams: {},
+  });
 
   const handleSortChange = (param, value) => {
-    const newParams = getNewSearchParams(searchParams, param, value);
+    const newParams = addNewSearchParam(searchParams, param, value);
     setSearchParams(newParams);
 
-    if (param === QUERY_PARAM_SORT_BY) setSortBy(value);
-    else if (param === QUERY_PARAM_ORDER_BY) setOrderBy(value);
+    dispatchArticles({
+      type: FETCH_ARTICLES_BROWSE_PARAMS_UPDATE,
+      payload: { param, value },
+    });
   };
 
   const handlePageChange = (step) => {
-    const newParams = getNewSearchParams(
+    const newPage = articles.searchParams[QUERY_PARAM_PAGE] + step;
+    const newParams = addNewSearchParam(
       searchParams,
       QUERY_PARAM_PAGE,
-      Number(page) + Number(step),
+      newPage,
     );
     setSearchParams(newParams);
-    setPage((curPage) => {
-      curPage + step;
+
+    dispatchArticles({
+      type: FETCH_ARTICLES_BROWSE_PARAMS_UPDATE,
+      payload: { [QUERY_PARAM_PAGE]: newPage },
     });
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    setError(null);
+    const parsedParams = parseQueryParams(searchParams);
+    const foundTopic = topicsList.find(
+      (topic) => topic.slug === parsedParams.topic,
+    );
 
-    const queryParams = parseQueryParams(searchParams);
-    const queryTopic = queryParams.topic;
+    if (!foundTopic) navigateTo("/notfound");
 
-    setSortBy(queryParams[QUERY_PARAM_SORT_BY]);
-    setOrderBy(queryParams[QUERY_PARAM_ORDER_BY]);
-    setLimit(queryParams[QUERY_PARAM_LIMIT]);
-    setPage(queryParams[QUERY_PARAM_PAGE]);
+    dispatchArticles({
+      type: FETCH_BROWSE_ARTICLES_INIT,
+      payload: { searchParams: parsedParams, topic: foundTopic },
+    });
 
-    if (queryTopic) {
-      const foundTopic = topicsList.find((topic) => topic.slug === queryTopic);
-      setTopic(foundTopic);
-
-      if (!foundTopic) navigateTo("/notfound");
-    } else setTopic(null);
-
-    getArticles(queryParams)
+    getArticles(parsedParams)
       .then((articles) => {
-        setArticles(articles);
-        setIsLastPage(articles.length < limit);
-        setIsLoading(false);
+        dispatchArticles({
+          type: FETCH_ARTICLES_SET_BROWSE_RESULTS,
+          payload: articles,
+        });
       })
-      .catch((error) => {
-        setIsLoading(false);
-        setError(error);
-      });
+      .catch((error) =>
+        dispatchArticles({ type: FETCH_ARTICLES_ERROR, payload: error }),
+      );
   }, [searchParams]);
 
-  if (isLoading) return <LoadingDisplay />;
-  if (error) return <ErrorDisplay error={error} />;
+  if (articles.isLoading) return <LoadingDisplay />;
+  if (articles.error) return <ErrorDisplay error={articles.error} />;
 
   return (
     <MainContainer searchParams={searchParams}>
@@ -124,23 +94,23 @@ const Browse = () => {
           <main>
             <header>
               <h2 className="text-xl font-bold capitalize md:text-2xl lg:text-3xl">
-                <span className="border-brand-tertiary border-b-2">
-                  {topic?.slug ?? "All topics"}
+                <span className="border-b-2 border-brand-tertiary">
+                  {articles.topic?.slug ?? "All topics"}
                 </span>
               </h2>
               <p className="py-2 text-sm lowercase text-gray-700">
-                {topic?.description}
+                {articles.topic?.description}
               </p>
             </header>
             <div className="my-4">
               <ArticleSorter
-                sortBy={sortBy}
-                orderBy={orderBy}
+                sortBy={articles.searchParams[QUERY_PARAM_SORT_BY]}
+                orderBy={articles.searchParams[QUERY_PARAM_ORDER_BY]}
                 handleSortChange={handleSortChange}
               />
             </div>
             <div className="flex flex-wrap">
-              {articles.map((article) => (
+              {articles.data.map((article) => (
                 <ArticleCard key={article.article_id} article={article} />
               ))}
             </div>
@@ -149,8 +119,8 @@ const Browse = () => {
           <div className="ml-4">
             <Paginator
               handlePageChange={handlePageChange}
-              currentPage={page}
-              isLastPage={isLastPage}
+              currentPage={articles.searchParams[QUERY_PARAM_PAGE]}
+              isLastPage={articles.isLastPage}
             />
           </div>
         </div>
