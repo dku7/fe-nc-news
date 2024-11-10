@@ -1,9 +1,13 @@
+import { useContext } from "react";
 import { VOTE_TYPE_ARTICLE } from "../utils/constants";
 import VotingBar from "./VotingBar";
+import { LoggedInUserContext } from "../contexts/LoggedInUser";
 
 const ArticleFooter = ({ article, votingEnabled }) => {
+  const { loggedInUser } = useContext(LoggedInUserContext);
+
   const displayVotingArea = () =>
-    votingEnabled ? (
+    votingEnabled && loggedInUser?.username !== article.author ? (
       <VotingBar
         recordType={VOTE_TYPE_ARTICLE}
         recordId={article.article_id}

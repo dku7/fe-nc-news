@@ -47,15 +47,20 @@ const CommentFooter = ({ comment, updateCommentsList }) => {
     </div>
   );
 
+  const displayVotingArea = () =>
+    loggedInUser?.username !== comment.author ? (
+      <VotingBar
+        recordType={VOTE_TYPE_COMMENT}
+        recordId={comment.comment_id}
+        currentVotes={comment.votes}
+      />
+    ) : (
+      <>{comment.votes} votes</>
+    );
+
   return (
     <div className="flex justify-between">
-      <div>
-        <VotingBar
-          recordType={VOTE_TYPE_COMMENT}
-          recordId={comment.comment_id}
-          currentVotes={comment.votes}
-        />
-      </div>
+      <div>{displayVotingArea()}</div>
       {loggedInUser?.username === comment.author ? showDeleteButton() : null}
     </div>
   );
