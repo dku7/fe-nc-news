@@ -18,7 +18,6 @@ The backend API is a separate project and can be found [here](https://www.github
 
 - **Clone the repository**: `git clone https://github.com/dku7/fe-nc-news`
 - **Install dependencies**: Navigate to the project directory and install the required Node.js dependencies using: `npm install`
-- **Build Tailwind CSS style sheet**: `npm run build-css`
 - **Run locally**: Start the application locally: `npm run dev`. Then open the provided `localhost` link
 
 ## Minimum Versions
