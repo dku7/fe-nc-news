@@ -6,6 +6,7 @@ import {
   COMMENT_STATUS_POST_UNSUCCESSFUL,
 } from "../utils/constants";
 import { postNewComment } from "../services/api";
+import { Link } from "react-router-dom";
 
 const CommentAdder = ({ article_id, updateCommentsList }) => {
   const { loggedInUser } = useContext(LoggedInUserContext);
@@ -56,7 +57,15 @@ const CommentAdder = ({ article_id, updateCommentsList }) => {
         Add
       </button>
     ) : (
-      <p>Log in to have your say.</p>
+      <p>
+        <Link
+          to="/login"
+          className="hover:text-brand-secondary font-semibold hover:underline"
+        >
+          Log in
+        </Link>{" "}
+        to have your say.
+      </p>
     );
 
   return (
