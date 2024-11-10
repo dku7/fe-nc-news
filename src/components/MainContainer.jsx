@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Menu from "./Menu";
 import Header from "./Header";
 import { SmallScreenContext } from "../contexts/SmallScreen";
+import Footer from "./Footer";
 
 const MainContainer = ({ children, searchParams, article }) => {
   const { isSmallScreen } = useContext(SmallScreenContext);
@@ -37,11 +38,14 @@ const MainContainer = ({ children, searchParams, article }) => {
   }, [isMenuOpen, searchParams, article]);
 
   return (
-    <div className="grid grid-cols-[200px_auto] grid-rows-[112px_auto]">
+    <div className="grid grid-cols-[200px_auto] grid-rows-[112px_auto_80px]">
       <div className="sticky top-0 col-span-2 row-start-1">
         <Header isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
       </div>
       {content}
+      <div className="col-span-2 row-start-3 border-t bg-gray-100">
+        <Footer />
+      </div>
     </div>
   );
 };

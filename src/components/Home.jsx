@@ -33,7 +33,6 @@ const Home = () => {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error);
         setIsLoading(false);
         setError(error);
       });
@@ -44,7 +43,7 @@ const Home = () => {
 
   return (
     <MainContainer>
-      <div id="container" className="flex flex-wrap justify-evenly p-5">
+      <div id="container" className="mb-5 flex flex-wrap justify-evenly p-5">
         <div id="top-section" className="flex flex-wrap justify-evenly px-5">
           <div className="mb-8 w-full md:w-5/12 lg:w-3/5">
             <FeaturedCard articleSummary={featured} />

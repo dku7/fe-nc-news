@@ -5,7 +5,7 @@ const Paginator = ({ handlePageChange, currentPage, isLastPage }) => {
   const handleNextPage = () => handlePageChange(1);
 
   return (
-    <div className="mt-10 flex">
+    <div className="mb-10 mt-10 flex">
       <div className="mr-4">
         {currentPage > 1 && (
           <PaginationButton
