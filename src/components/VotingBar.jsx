@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import VotingButton from "./VotingButton";
 import {
   VOTE_DIRECTION_UP,
@@ -6,6 +7,7 @@ import {
   VOTE_STATUS_VOTING_IN_PROGRESS,
   VOTE_STATUS_VOTE_SUCCESSFUL,
   VOTE_STATUS_VOTE_UNSUCCESSFUL,
+  VOTE_STATUS_NOT_LOGGED_IN,
 } from "../utils/constants";
 import { patchArticleVotes } from "../services/api";
 import { LoggedInUserContext } from "../contexts/LoggedInUser";
@@ -22,7 +24,7 @@ const VotingBar = ({ article_id, currentVotes }) => {
 
   const handleVoting = (amount) => {
     if (!loggedInUser) {
-      setVotingStatus("You must be logged in to vote.");
+      setVotingStatus(VOTE_STATUS_NOT_LOGGED_IN);
     } else {
       setVotingStatus(VOTE_STATUS_VOTING_IN_PROGRESS);
       setVotes((cur) => cur + amount);
@@ -38,7 +40,7 @@ const VotingBar = ({ article_id, currentVotes }) => {
 
   return (
     <>
-      <div className="flex items-center mt-2">
+      <div className="mt-2 flex items-center">
         <VotingButton
           direction={VOTE_DIRECTION_UP}
           onVoteClick={handleVoting}
@@ -51,7 +53,20 @@ const VotingBar = ({ article_id, currentVotes }) => {
           votingStatus={votingStatus}
         />
       </div>
-      <p className="mt-2">{votingStatus}</p>
+      {votingStatus === VOTE_STATUS_NOT_LOGGED_IN ? (
+        <p className="mt-2">
+          Please{" "}
+          <Link
+            to="/login"
+            className="hover:text-brand-secondary font-semibold hover:underline"
+          >
+            log in
+          </Link>{" "}
+          to vote.
+        </p>
+      ) : (
+        votingStatus
+      )}
     </>
   );
 };
