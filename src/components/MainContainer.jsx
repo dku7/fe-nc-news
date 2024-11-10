@@ -1,11 +1,14 @@
 import { useContext, useEffect, useState } from "react";
+import { getTopics } from "../services/api";
 import Menu from "./Menu";
 import Header from "./Header";
 import { SmallScreenContext } from "../contexts/SmallScreen";
+import { TopicsListContext } from "../contexts/TopicsList";
 import Footer from "./Footer";
 
 const MainContainer = ({ children, searchParams, article }) => {
   const { isSmallScreen } = useContext(SmallScreenContext);
+  const { setTopicsList } = useContext(TopicsListContext);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [content, setContent] = useState();
@@ -14,6 +17,10 @@ const MainContainer = ({ children, searchParams, article }) => {
     if (!isSmallScreen) setIsMenuOpen(false);
     else setIsMenuOpen((isOpen) => !isOpen);
   };
+
+  useEffect(() => {
+    getTopics().then((topics) => setTopicsList(topics));
+  }, []);
 
   useEffect(() => {
     const showMenuOnly = () => (

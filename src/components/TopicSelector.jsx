@@ -1,38 +1,16 @@
-import { useState, useEffect, useContext } from "react";
-import { getTopics } from "../services/api";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { TopicsListContext } from "../contexts/TopicsList";
-import { TagIcon, HomeIcon } from "@heroicons/react/24/outline";
+import { TagIcon } from "@heroicons/react/24/outline";
 
 const TopicSelector = ({ onSelect }) => {
-  const { topicsList, setTopicsList } = useContext(TopicsListContext);
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setIsError(false);
-
-    getTopics()
-      .then((topics) => {
-        setTopicsList(topics);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsError(true);
-        setIsLoading(false);
-      });
-  }, []);
-
-  if (isLoading) return <p>Loading topics...</p>;
-  if (isError) return <p>There was an error loading topics.</p>;
+  const { topicsList } = useContext(TopicsListContext);
 
   return (
     <>
       <div className="flex pb-2">
         <Link
-          className="hover:text-brand-secondary text-nowrap text-lg hover:underline"
+          className="text-nowrap text-lg hover:text-brand-secondary hover:underline"
           onClick={onSelect}
           to="/browse"
         >
@@ -41,17 +19,19 @@ const TopicSelector = ({ onSelect }) => {
         </Link>
       </div>
       <ul>
-        {topicsList.map((topic) => (
-          <li key={topic.slug} className="ml-12 pb-1 text-base capitalize">
-            <Link
-              className="hover:text-brand-secondary hover:underline"
-              onClick={onSelect}
-              to={`/browse?topic=${topic.slug}`}
-            >
-              {topic.slug}
-            </Link>
-          </li>
-        ))}
+        {topicsList
+          ? topicsList.map((topic) => (
+              <li key={topic.slug} className="ml-12 pb-1 text-base capitalize">
+                <Link
+                  className="hover:text-brand-secondary hover:underline"
+                  onClick={onSelect}
+                  to={`/browse?topic=${topic.slug}`}
+                >
+                  {topic.slug}
+                </Link>
+              </li>
+            ))
+          : "Could not get list of topics"}
       </ul>
     </>
   );
