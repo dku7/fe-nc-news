@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const ArticleList = ({ articles, showTopic }) => {
   return (
-    <ul>
+    <ul className="mb-4">
       {articles.map((article) => (
         <li key={article.article_id}>
           <div className="my-3">
