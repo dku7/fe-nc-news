@@ -16,6 +16,7 @@ const VotingBar = ({ article_id, currentVotes }) => {
   const { loggedInUser } = useContext(LoggedInUserContext);
   const [votes, setVotes] = useState(currentVotes);
   const [votingStatus, setVotingStatus] = useState("");
+  const [lastVoteDirection, setLastVoteDirection] = useState("");
 
   useEffect(() => {
     setVotes(currentVotes);
@@ -30,9 +31,15 @@ const VotingBar = ({ article_id, currentVotes }) => {
       setVotes((cur) => cur + amount);
 
       patchArticleVotes(article_id, amount)
-        .then(() => setVotingStatus(VOTE_STATUS_VOTE_SUCCESSFUL))
+        .then(() => {
+          setVotingStatus(VOTE_STATUS_VOTE_SUCCESSFUL);
+          setLastVoteDirection(
+            amount < 1 ? VOTE_DIRECTION_DOWN : VOTE_DIRECTION_UP,
+          );
+        })
         .catch(() => {
           setVotingStatus(VOTE_STATUS_VOTE_UNSUCCESSFUL);
+          setLastVoteDirection("");
           setVotes((cur) => cur - amount);
         });
     }
@@ -45,12 +52,14 @@ const VotingBar = ({ article_id, currentVotes }) => {
           direction={VOTE_DIRECTION_UP}
           onVoteClick={handleVoting}
           votingStatus={votingStatus}
+          lastVoteDirection={lastVoteDirection}
         />
         <span className="px-4">{votes}</span>
         <VotingButton
           direction={VOTE_DIRECTION_DOWN}
           onVoteClick={handleVoting}
           votingStatus={votingStatus}
+          lastVoteDirection={lastVoteDirection}
         />
       </div>
       {votingStatus === VOTE_STATUS_NOT_LOGGED_IN ? (
