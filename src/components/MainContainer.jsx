@@ -18,33 +18,33 @@ const MainContainer = ({ children, searchParams, article }) => {
     else setIsMenuOpen((isOpen) => !isOpen);
   };
 
+  const showMenuOnly = (
+    <div className="col-span-2 row-start-2 border-r border-gray-200">
+      <Menu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
+    </div>
+  );
+
+  const showMenuAndContent = (
+    <>
+      <div className="col-span-1 row-start-2 hidden border-r border-gray-200 md:block">
+        <Menu handleMenuOpen={handleMenuOpen} />
+      </div>
+
+      <div className="col-span-2 row-start-2 flex justify-center md:col-span-1">
+        {children}
+      </div>
+      <div className="col-span-2 row-start-3 border-t bg-gray-100">
+        <Footer />
+      </div>
+    </>
+  );
+
   useEffect(() => {
     getTopics().then((topics) => setTopicsList(topics));
   }, []);
 
   useEffect(() => {
-    const showMenuOnly = () => (
-      <div className="col-span-2 row-start-2 border-r border-gray-200">
-        <Menu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
-      </div>
-    );
-
-    const showMenuAndContent = () => (
-      <>
-        <div className="col-span-1 row-start-2 hidden border-r border-gray-200 md:block">
-          <Menu handleMenuOpen={handleMenuOpen} />
-        </div>
-
-        <div className="col-span-2 row-start-2 flex justify-center md:col-span-1">
-          {children}
-        </div>
-        <div className="col-span-2 row-start-3 border-t bg-gray-100">
-          <Footer />
-        </div>
-      </>
-    );
-
-    isMenuOpen ? setContent(showMenuOnly()) : setContent(showMenuAndContent());
+    isMenuOpen ? setContent(showMenuOnly) : setContent(showMenuAndContent);
   }, [isMenuOpen, searchParams, article]);
 
   return (
