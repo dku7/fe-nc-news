@@ -5,14 +5,16 @@ import LoadingDisplay from "./LoadingDisplay";
 import CommentAdder from "./CommentAdder";
 import Paginator from "./Paginator";
 import {
-  FETCH_COMMENTS_INIT,
-  FETCH_COMMENTS_ERROR,
-  FETCH_COMMENTS_SET_COMMENTS,
   QUERY_PARAM_DEFAULT_COMMENT_LIMIT,
   COMMENT_DISPATCH_ADD_NEW_COMMENT,
   COMMENT_DISPATCH_DELETE_COMMENT,
 } from "../utils/constants";
-import { commentsReducer } from "../reducers/comments_reducers";
+import {
+  commentsReducer,
+  FETCH_COMMENTS_INIT,
+  FETCH_COMMENTS_ERROR,
+  FETCH_COMMENTS_SET_COMMENTS,
+} from "../reducers/comments_reducers";
 
 const CommentsList = ({ article_id }) => {
   const [comments, dispatchComments] = useReducer(commentsReducer, {

@@ -12,13 +12,15 @@ import {
   QUERY_PARAM_SORT_BY,
   QUERY_PARAM_ORDER_BY,
   QUERY_PARAM_PAGE,
+} from "../utils/constants";
+import Paginator from "./Paginator";
+import {
+  articlesReducer,
   FETCH_ARTICLES_ERROR,
   FETCH_ARTICLES_SET_BROWSE_RESULTS,
   FETCH_BROWSE_ARTICLES_INIT,
   FETCH_ARTICLES_BROWSE_PARAMS_UPDATE,
-} from "../utils/constants";
-import Paginator from "./Paginator";
-import { articlesReducer } from "../reducers/articles_reducers";
+} from "../reducers/articles_reducers";
 import { parseQueryParams, addNewSearchParam } from "../utils/utils";
 
 const Browse = () => {

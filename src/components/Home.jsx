@@ -4,15 +4,14 @@ import ErrorDisplay from "./ErrorDisplay";
 import FeaturedCard from "./FeaturedCard";
 import MainContainer from "./MainContainer";
 import { getArticles } from "../services/api";
+import { QUERY_PARAM_SORT_BY, QUERY_PARAM_ORDER_BY } from "../utils/constants";
+import { getRandomSortBy, getRandomOrder } from "../utils/utils";
 import {
+  articlesReducer,
   FETCH_ARTICLES_INIT,
   FETCH_ARTICLES_ERROR,
-  QUERY_PARAM_SORT_BY,
-  QUERY_PARAM_ORDER_BY,
   FETCH_ARTICLES_SET_HOME_ARTICLES,
-} from "../utils/constants";
-import { getRandomSortBy, getRandomOrder } from "../utils/utils";
-import { articlesReducer } from "../reducers/articles_reducers";
+} from "../reducers/articles_reducers";
 import ArticleList from "./ArticleList";
 import ArticleCard from "./ArticleCard";
 
