@@ -1,37 +1,60 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { getArticleComments } from "../services/api";
 import CommentCard from "./CommentCard";
 import LoadingDisplay from "./LoadingDisplay";
-import ErrorDisplay from "./ErrorDisplay";
 import CommentAdder from "./CommentAdder";
 import Paginator from "./Paginator";
-import { QUERY_PARAM_DEFAULT_COMMENT_LIMIT } from "../utils/constants";
+import {
+  QUERY_PARAM_DEFAULT_COMMENT_LIMIT,
+  COMMENT_DISPATCH_ADD_NEW_COMMENT,
+  COMMENT_DISPATCH_DELETE_COMMENT,
+} from "../utils/constants";
+import {
+  commentsReducer,
+  FETCH_COMMENTS_INIT,
+  FETCH_COMMENTS_ERROR,
+  FETCH_COMMENTS_SET_COMMENTS,
+} from "../reducers/comments_reducers";
 
 const CommentsList = ({ article_id }) => {
-  const [comments, setComments] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const [page, setPage] = useState(0);
-  const [isLastPage, setIsLastPage] = useState(false);
+  const [comments, dispatchComments] = useReducer(commentsReducer, {
+    data: [],
+    isLoading: true,
+    error: null,
+    page: 0,
+    isLastPage: false,
+  });
 
+  const handleAddCommentToList = (newComment) =>
+    dispatchComments({
+      type: COMMENT_DISPATCH_ADD_NEW_COMMENT,
+      payload: newComment,
+    });
+
+  const handleDeleteCommentFromList = (comment_id) => {
+    dispatchComments({
+      type: COMMENT_DISPATCH_DELETE_COMMENT,
+      payload: comment_id,
+    });
+  };
   const handlePageChange = (step) => {
-    const nextPage = page + (step ?? 0);
+    const nextPage = comments.page + (step ?? 0);
 
-    setComments([]);
-    setPage(nextPage);
-    setIsLoading(true);
-    setIsError(false);
+    dispatchComments({
+      type: FETCH_COMMENTS_INIT,
+      payload: { page: nextPage },
+    });
 
     getArticleComments(article_id, QUERY_PARAM_DEFAULT_COMMENT_LIMIT, nextPage)
       .then((comments) => {
-        setComments(comments);
-        setIsLastPage(comments.length < QUERY_PARAM_DEFAULT_COMMENT_LIMIT);
-        setIsLoading(false);
+        dispatchComments({
+          type: FETCH_COMMENTS_SET_COMMENTS,
+          payload: { comments, page: nextPage },
+        });
       })
-      .catch(() => {
-        setIsError(true);
-        setIsLoading(false);
-      });
+      .catch((error) =>
+        dispatchComments({ type: FETCH_COMMENTS_ERROR, payload: error }),
+      );
   };
 
   useEffect(() => handlePageChange(1), []);
@@ -41,26 +64,28 @@ const CommentsList = ({ article_id }) => {
       <section className="mt-10">
         <header className="mb-4">
           <h2 className="text-xl font-bold">
-            <span className="border-brand-tertiary border-b-2">Comments</span>
+            <span className="border-b-2 border-brand-tertiary">Comments</span>
           </h2>
         </header>
 
         <div className="mb-10">
           <CommentAdder
             article_id={article_id}
-            updateCommentsList={setComments}
+            handleAddCommentToList={handleAddCommentToList}
           />
         </div>
 
-        {isLoading && <LoadingDisplay />}
-        {isError && <p>There was an error loading comments for the article.</p>}
+        {comments.isLoading && <LoadingDisplay />}
+        {comments.error && (
+          <p>There was an error loading comments for the article.</p>
+        )}
 
         <div>
-          {comments.map((comment) => (
+          {comments.data.map((comment) => (
             <CommentCard
               key={comment.comment_id}
               comment={comment}
-              updateCommentsList={setComments}
+              handleDeleteCommentFromList={handleDeleteCommentFromList}
             />
           ))}
         </div>
@@ -68,8 +93,8 @@ const CommentsList = ({ article_id }) => {
       <div>
         <Paginator
           handlePageChange={handlePageChange}
-          currentPage={page}
-          isLastPage={isLastPage}
+          currentPage={comments.page}
+          isLastPage={comments.isLastPage}
         />
       </div>
     </>
