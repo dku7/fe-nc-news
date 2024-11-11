@@ -64,7 +64,7 @@ const Browse = () => {
       (topic) => topic.slug === parsedParams.topic,
     );
 
-    if (!foundTopic) navigateTo("/notfound");
+    if (parsedParams.topic && !foundTopic) navigateTo("/notfound");
 
     dispatchArticles({
       type: FETCH_BROWSE_ARTICLES_INIT,
