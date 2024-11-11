@@ -40,7 +40,7 @@ const Article = () => {
       .catch((error) => {
         if (error.status === 400 || error.status === 404)
           dispatchArticle({ type: FETCH_ARTICLES_NOT_FOUND });
-        else dispatchArticle({ type: FETCH_ARTICLES_ERROR });
+        else dispatchArticle({ type: FETCH_ARTICLES_ERROR, payload: error });
       });
   }, [article_id]);
 
