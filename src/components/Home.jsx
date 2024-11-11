@@ -39,7 +39,7 @@ const Home = () => {
         }),
       )
       .catch((error) =>
-        dispatchArticles({ type: FETCH_ARTICLES_ERROR, error }),
+        dispatchArticles({ type: FETCH_ARTICLES_ERROR, payload: error }),
       );
   }, []);
 
