@@ -22,7 +22,6 @@ const CommentFooter = ({ comment, handleDeleteCommentFromList }) => {
     deleteComment(comment.comment_id)
       .then(() => {
         handleDeleteCommentFromList(comment.comment_id);
-
         setDeleteStatus(COMMENT_STATUS_DELETE_SUCCESSFUL);
       })
       .catch(() => {
@@ -31,7 +30,7 @@ const CommentFooter = ({ comment, handleDeleteCommentFromList }) => {
       });
   };
 
-  const showDeleteButton = () => (
+  const deleteButton = (
     <div className="text-right">
       <button
         title="Delete comment"
@@ -44,7 +43,7 @@ const CommentFooter = ({ comment, handleDeleteCommentFromList }) => {
     </div>
   );
 
-  const displayVotingArea = () =>
+  const votingArea =
     loggedInUser?.username !== comment.author ? (
       <VotingBar
         recordType={VOTE_TYPE_COMMENT}
@@ -52,13 +51,13 @@ const CommentFooter = ({ comment, handleDeleteCommentFromList }) => {
         currentVotes={comment.votes}
       />
     ) : (
-      <>{comment.votes} votes</>
+      <span>{comment.votes} votes</span>
     );
 
   return (
     <div className="flex justify-between">
-      <div>{displayVotingArea()}</div>
-      {loggedInUser?.username === comment.author ? showDeleteButton() : null}
+      <div>{votingArea}</div>
+      {loggedInUser?.username === comment.author ? deleteButton : null}
     </div>
   );
 };
