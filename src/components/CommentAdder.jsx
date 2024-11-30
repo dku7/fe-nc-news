@@ -1,72 +1,66 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useReducer } from "react";
 import { LoggedInUserContext } from "../contexts/LoggedInUser";
-import {
-  COMMENT_STATUS_POST_IN_PROGRESS,
-  COMMENT_STATUS_POST_SUCCESSFUL,
-  COMMENT_STATUS_POST_UNSUCCESSFUL,
-} from "../utils/constants";
 import { postNewComment } from "../services/api";
 import { Link } from "react-router-dom";
 
+import {
+  commentsReducer,
+  COMMENT_DISPATCH_SET_NEW_COMMENT,
+  POST_COMMENT_INIT,
+  POST_COMMENT_SUCCESSFUL,
+  POST_COMMENT_UNSUCCESSFUL,
+} from "../reducers/comments_reducers";
+
 const CommentAdder = ({ article_id, handleAddCommentToList }) => {
   const { loggedInUser } = useContext(LoggedInUserContext);
-  const [comment, setComment] = useState("");
-  const [commentStatus, setCommentStatus] = useState("");
-  const [isPostingEnabled, setIsPostingEnabled] = useState(false);
+  const [comment, dispatchComments] = useReducer(commentsReducer, {
+    data: "",
+    commentStatus: "",
+    isPostingEnabled: false,
+  });
 
-  const handleCommentChange = (event) => {
-    const newComment = event.target.value;
-
-    setComment(newComment);
-    setIsPostingEnabled(newComment);
-  };
-
-  useEffect(() => setCommentStatus(""), [loggedInUser]);
+  const handleCommentChange = (event) =>
+    dispatchComments({
+      type: COMMENT_DISPATCH_SET_NEW_COMMENT,
+      payload: event.target.value,
+    });
 
   const submitComment = (event) => {
     event.preventDefault();
-    setCommentStatus(COMMENT_STATUS_POST_IN_PROGRESS);
-    setIsPostingEnabled(false);
+    dispatchComments({ type: POST_COMMENT_INIT });
 
-    postNewComment(article_id, comment, loggedInUser.username)
+    postNewComment(article_id, comment.data, loggedInUser.username)
       .then((newComment) => {
         handleAddCommentToList(newComment);
-
-        setCommentStatus(COMMENT_STATUS_POST_SUCCESSFUL);
-        setIsPostingEnabled(true);
-        setComment("");
+        dispatchComments({ type: POST_COMMENT_SUCCESSFUL });
       })
-      .catch(() => {
-        setCommentStatus(COMMENT_STATUS_POST_UNSUCCESSFUL);
-        setIsPostingEnabled(true);
-      });
+      .catch(() => dispatchComments({ type: POST_COMMENT_UNSUCCESSFUL }));
   };
 
-  const checkUserIsLoggedIn = () =>
-    loggedInUser ? (
-      <button
-        className={
-          "mb-2 rounded border px-4 " +
-          (isPostingEnabled
-            ? "bg-brand-primary text-white hover:bg-brand-tertiary hover:text-white"
-            : " bg-gray-100 text-gray-800")
-        }
-        type="submit"
-        disabled={!isPostingEnabled}
+  const addButton = loggedInUser ? (
+    <button
+      className={
+        "mb-2 rounded border px-4 " +
+        (comment.isPostingEnabled
+          ? "bg-brand-primary text-white hover:bg-brand-tertiary hover:text-white"
+          : " bg-gray-100 text-gray-800")
+      }
+      type="submit"
+      disabled={!comment.isPostingEnabled}
+    >
+      Add
+    </button>
+  ) : (
+    <p>
+      <Link
+        to="/login"
+        className="font-semibold hover:text-brand-secondary hover:underline"
       >
-        Add
-      </button>
-    ) : (
-      <p>
-        <Link
-          to="/login"
-          className="font-semibold hover:text-brand-secondary hover:underline"
-        >
-          Log in
-        </Link>{" "}
-        to have your say.
-      </p>
-    );
+        Log in
+      </Link>{" "}
+      to have your say.
+    </p>
+  );
 
   return (
     <div>
@@ -76,13 +70,13 @@ const CommentAdder = ({ article_id, handleAddCommentToList }) => {
           className="mb-4 mt-2 block w-full resize-none rounded border pl-1"
           name="comment-input"
           id="comment-input"
-          value={comment}
+          value={comment.data}
           disabled={!loggedInUser}
           onChange={handleCommentChange}
         />
-        {checkUserIsLoggedIn()}
+        {addButton}
       </form>
-      <p>{commentStatus}</p>
+      <p>{comment.commentStatus}</p>
     </div>
   );
 };
