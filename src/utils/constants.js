@@ -10,7 +10,6 @@ export const VOTE_TYPE_ARTICLE = "article";
 export const VOTE_TYPE_COMMENT = "comment";
 
 // posting comments
-export const COMMENT_DISPATCH_ADD_NEW_COMMENT = "COMMENT_DISPATCH_NEW_COMMENT";
 export const COMMENT_STATUS_POST_IN_PROGRESS = "Adding your comment...";
 export const COMMENT_STATUS_POST_SUCCESSFUL =
   "Thank you for leaving your comment.";
@@ -18,8 +17,6 @@ export const COMMENT_STATUS_POST_UNSUCCESSFUL =
   "Sorry, your comment could not added. Please try again.";
 
 // deleting comments
-export const COMMENT_DISPATCH_DELETE_COMMENT =
-  "COMMENT_DISPATCH_DELETE_COMMENT";
 export const COMMENT_STATUS_DELETE_IN_PROGRESS = "Deleting...";
 export const COMMENT_STATUS_DELETE_SUCCESSFUL =
   "Your comment has been deleted.";

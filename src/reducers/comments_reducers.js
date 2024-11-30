@@ -1,12 +1,13 @@
 export const FETCH_COMMENTS_INIT = "FETCH_COMMENTS_INIT";
 export const FETCH_COMMENTS_SET_COMMENTS = "FETCH_COMMENTS_SET_COMMENTS";
 export const FETCH_COMMENTS_ERROR = "FETCH_COMMENTS_ERROR";
+export const COMMENT_DISPATCH_ADD_NEW_COMMENT = "COMMENT_DISPATCH_NEW_COMMENT";
+export const COMMENT_DISPATCH_SET_NEW_COMMENT =
+  "COMMENT_DISPATCH_SET_NEW_COMMENT";
+export const COMMENT_DISPATCH_DELETE_COMMENT =
+  "COMMENT_DISPATCH_DELETE_COMMENT";
 
-import {
-  QUERY_PARAM_DEFAULT_COMMENT_LIMIT,
-  COMMENT_DISPATCH_ADD_NEW_COMMENT,
-  COMMENT_DISPATCH_DELETE_COMMENT,
-} from "../utils/constants";
+import { QUERY_PARAM_DEFAULT_COMMENT_LIMIT } from "../utils/constants";
 
 export const commentsReducer = (state, action) => {
   switch (action.type) {
@@ -32,6 +33,20 @@ export const commentsReducer = (state, action) => {
       return {
         ...state,
         data: [action.payload, ...state.data],
+      };
+
+    case COMMENT_DISPATCH_SET_NEW_COMMENT:
+      console.log("dispatch, setting new comment");
+      return {
+        ...state,
+        data: [action.payload],
+        isPostingEnabled: [action.payload ? true : false],
+      };
+
+    case COMMENT_DISPATCH_SUBMIT_NEW_COMMENT:
+      console.log("dispatch, submitting");
+      return {
+        ...state,
       };
 
     case COMMENT_DISPATCH_DELETE_COMMENT:
