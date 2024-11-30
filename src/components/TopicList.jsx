@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { TopicsListContext } from "../contexts/TopicsList";
+import TopicItem from "./TopicItem";
 
 const TopicList = ({ onSelect }) => {
   const { topicsList } = useContext(TopicsListContext);
@@ -9,15 +9,7 @@ const TopicList = ({ onSelect }) => {
     <ul>
       {topicsList
         ? topicsList.map((topic) => (
-            <li key={topic.slug} className="ml-12 pb-1 text-base capitalize">
-              <Link
-                className="hover:text-brand-secondary hover:underline"
-                onClick={onSelect}
-                to={`/browse?topic=${topic.slug}`}
-              >
-                {topic.slug}
-              </Link>
-            </li>
+            <TopicItem key={topic.slug} topic={topic} onSelect={onSelect} />
           ))
         : "Could not get list of topics"}
     </ul>
