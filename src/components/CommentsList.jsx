@@ -4,16 +4,14 @@ import CommentCard from "./CommentCard";
 import LoadingDisplay from "./LoadingDisplay";
 import CommentAdder from "./CommentAdder";
 import Paginator from "./Paginator";
-import {
-  QUERY_PARAM_DEFAULT_COMMENT_LIMIT,
-  COMMENT_DISPATCH_ADD_NEW_COMMENT,
-  COMMENT_DISPATCH_DELETE_COMMENT,
-} from "../utils/constants";
+import { QUERY_PARAM_DEFAULT_COMMENT_LIMIT } from "../utils/constants";
 import {
   commentsReducer,
   FETCH_COMMENTS_INIT,
   FETCH_COMMENTS_ERROR,
   FETCH_COMMENTS_SET_COMMENTS,
+  COMMENT_DISPATCH_ADD_NEW_COMMENT,
+  COMMENT_DISPATCH_DELETE_COMMENT,
 } from "../reducers/comments_reducers";
 
 const CommentsList = ({ article_id }) => {

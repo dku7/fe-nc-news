@@ -1,12 +1,22 @@
 export const FETCH_COMMENTS_INIT = "FETCH_COMMENTS_INIT";
 export const FETCH_COMMENTS_SET_COMMENTS = "FETCH_COMMENTS_SET_COMMENTS";
 export const FETCH_COMMENTS_ERROR = "FETCH_COMMENTS_ERROR";
+export const POST_COMMENT_INIT = "POST_COMMENT_INIT";
+export const POST_COMMENT_SUCCESSFUL = "POST_COMMENT_SUCCESSFUL";
+export const POST_COMMENT_UNSUCCESSFUL = "POST_COMMENT_UNSUCCESSFUL";
+export const COMMENT_DISPATCH_ADD_NEW_COMMENT = "COMMENT_DISPATCH_NEW_COMMENT";
+export const COMMENT_DISPATCH_SET_NEW_COMMENT =
+  "COMMENT_DISPATCH_SET_NEW_COMMENT";
+export const COMMENT_DISPATCH_DELETE_COMMENT =
+  "COMMENT_DISPATCH_DELETE_COMMENT";
 
-import {
-  QUERY_PARAM_DEFAULT_COMMENT_LIMIT,
-  COMMENT_DISPATCH_ADD_NEW_COMMENT,
-  COMMENT_DISPATCH_DELETE_COMMENT,
-} from "../utils/constants";
+export const COMMENT_STATUS_POST_IN_PROGRESS = "Adding your comment...";
+export const COMMENT_STATUS_POST_SUCCESSFUL =
+  "Thank you for leaving your comment.";
+export const COMMENT_STATUS_POST_UNSUCCESSFUL =
+  "Sorry, your comment could not added. Please try again.";
+
+import { QUERY_PARAM_DEFAULT_COMMENT_LIMIT } from "../utils/constants";
 
 export const commentsReducer = (state, action) => {
   switch (action.type) {
@@ -32,6 +42,35 @@ export const commentsReducer = (state, action) => {
       return {
         ...state,
         data: [action.payload, ...state.data],
+      };
+
+    case COMMENT_DISPATCH_SET_NEW_COMMENT:
+      return {
+        ...state,
+        data: [action.payload],
+        isPostingEnabled: action.payload ? true : false,
+      };
+
+    case POST_COMMENT_INIT:
+      return {
+        ...state,
+        commentStatus: COMMENT_STATUS_POST_IN_PROGRESS,
+        isPostingEnabled: false,
+      };
+
+    case POST_COMMENT_SUCCESSFUL:
+      return {
+        ...state,
+        commentStatus: COMMENT_STATUS_POST_SUCCESSFUL,
+        isPostingEnabled: false,
+        data: "",
+      };
+
+    case POST_COMMENT_UNSUCCESSFUL:
+      return {
+        ...state,
+        commentStatus: COMMENT_STATUS_POST_UNSUCCESSFUL,
+        isPostingEnabled: true,
       };
 
     case COMMENT_DISPATCH_DELETE_COMMENT:
