@@ -6,7 +6,7 @@ import { LoggedInUserContext } from "../contexts/LoggedInUser";
 const ArticleFooter = ({ article, votingEnabled }) => {
   const { loggedInUser } = useContext(LoggedInUserContext);
 
-  const displayVotingArea = () =>
+  const votingArea =
     votingEnabled && loggedInUser?.username !== article.author ? (
       <VotingBar
         recordType={VOTE_TYPE_ARTICLE}
@@ -19,7 +19,7 @@ const ArticleFooter = ({ article, votingEnabled }) => {
 
   return (
     <div className="mb-4 flex align-baseline font-light sm:text-sm">
-      <span className="inline-block">{displayVotingArea()}</span>
+      <span className="inline-block">{votingArea}</span>
       <span className="my-auto pl-8">{article.comment_count} comments</span>
     </div>
   );
