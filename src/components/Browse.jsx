@@ -1,13 +1,13 @@
-import { useEffect, useContext, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getArticles } from "../services/api";
+import { getTopics } from "../services/api";
 import MainContainer from "./MainContainer";
 import LoadingDisplay from "./LoadingDisplay";
 import ErrorDisplay from "./ErrorDisplay";
 import ArticleCard from "./ArticleCard";
 import ArticleSorter from "./ArticleSorter";
-import { TopicsListContext } from "../contexts/TopicsList";
 import {
   QUERY_PARAM_SORT_BY,
   QUERY_PARAM_ORDER_BY,
@@ -25,7 +25,6 @@ import { parseQueryParams, addNewSearchParam } from "../utils/utils";
 
 const Browse = () => {
   const navigateTo = useNavigate();
-  const { topicsList } = useContext(TopicsListContext);
   const [searchParams, setSearchParams] = useSearchParams();
   const [articles, dispatchArticles] = useReducer(articlesReducer, {
     data: [],
@@ -62,11 +61,15 @@ const Browse = () => {
 
   useEffect(() => {
     const parsedParams = parseQueryParams(searchParams);
-    const foundTopic = topicsList.find(
-      (topic) => topic.slug === parsedParams.topic,
-    );
+    let foundTopic = "";
 
-    if (parsedParams.topic && !foundTopic) navigateTo("/notfound");
+    if (parsedParams.topic) {
+      getTopics().then((topics) => {
+        foundTopic = topics.find((topic) => topic.slug === parsedParams.topic);
+
+        if (!foundTopic) navigateTo("/notfound");
+      });
+    }
 
     dispatchArticles({
       type: FETCH_BROWSE_ARTICLES_INIT,
