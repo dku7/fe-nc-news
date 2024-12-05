@@ -46,7 +46,7 @@ const Article = () => {
 
   if (article.isLoading) return <LoadingDisplay />;
   if (article.notFound) return <NotFound />;
-  if (article.error) return <ErrorDisplay error={error} />;
+  if (article.error) return <ErrorDisplay error={article.error} />;
 
   return (
     <MainContainer article={article.data}>
