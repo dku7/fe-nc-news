@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Browse from "./components/Browse";
@@ -12,7 +12,7 @@ const App = () => {
   const { setIsSmallScreen } = useContext(SmallScreenContext);
   const { setLoggedInUser } = useContext(LoggedInUserContext);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const previouslyLoggedInUser = JSON.parse(
       localStorage.getItem("loggedInUser"),
     );
