@@ -86,7 +86,8 @@ const Browse = () => {
       .catch((error) =>
         dispatchArticles({ type: FETCH_ARTICLES_ERROR, payload: error }),
       );
-  }, [navigateTo, searchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   if (articles.isLoading) return <LoadingDisplay />;
   if (articles.error) return <ErrorDisplay error={articles.error} />;
