@@ -1,9 +1,21 @@
 import axios from "axios";
-import { comment } from "postcss";
+import axiosRetry from "axios-retry";
 
 const apiClient = axios.create({
   baseURL: "https://nc-news-voyg.onrender.com",
   timeout: 30000,
+});
+
+axiosRetry(apiClient, {
+  retries: 3,
+  retryDelay: () => 100,
+  shouldResetTimeout: true,
+  retryCondition: (error) => {
+    return (
+      axiosRetry.isNetworkOrIdempotentRequestError(error) ||
+      error.code === "ECONNABORTED"
+    );
+  },
 });
 
 export const getArticles = (queryParams) =>
