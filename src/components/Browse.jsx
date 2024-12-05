@@ -86,7 +86,7 @@ const Browse = () => {
       .catch((error) =>
         dispatchArticles({ type: FETCH_ARTICLES_ERROR, payload: error }),
       );
-  }, [searchParams]);
+  }, [navigateTo, searchParams]);
 
   if (articles.isLoading) return <LoadingDisplay />;
   if (articles.error) return <ErrorDisplay error={articles.error} />;

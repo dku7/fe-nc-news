@@ -32,7 +32,7 @@ const Related = ({ mainArticle }) => {
         setIsLoading(false);
         setIsError(true);
       });
-  }, []);
+  }, [mainArticle]);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Could not get list of related articles.</p>;
@@ -41,7 +41,7 @@ const Related = ({ mainArticle }) => {
     <div>
       <header>
         <h3 className="mb-2 font-semibold">
-          <span className="border-brand-tertiary border-b-2">
+          <span className="border-b-2 border-brand-tertiary">
             Related articles
           </span>
         </h3>
