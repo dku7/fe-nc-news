@@ -1,4 +1,11 @@
-import { useContext, useEffect, useMemo, useState, useCallback } from "react";
+import {
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 import { getTopics } from "../services/api";
 import Menu from "./Menu";
 import Header from "./Header";
@@ -49,7 +56,7 @@ const MainContainer = ({ children, searchParams, article }) => {
     getTopics().then((topics) => setTopicsList(topics));
   }, [setTopicsList]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     isMenuOpen ? setContent(showMenuOnly) : setContent(showMenuAndContent);
   }, [isMenuOpen, searchParams, article, showMenuOnly, showMenuAndContent]);
 
