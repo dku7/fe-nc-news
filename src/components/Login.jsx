@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigateTo = useNavigate();
-  const { loggedInUser, setLoggedInUser } = useContext(LoggedInUserContext);
-  const [password, setPassword] = useState("password");
+  const { setLoggedInUser } = useContext(LoggedInUserContext);
+  const [password] = useState("password");
 
   const defaultUser = {
     username: "cooljmessy",
@@ -49,7 +49,7 @@ const Login = () => {
               />
               <button
                 title="Login"
-                className="bg-brand-primary hover:bg-brand-tertiary mb-2 mt-8 w-full rounded border px-4 py-2 text-white"
+                className="mb-2 mt-8 w-full rounded border bg-brand-primary px-4 py-2 text-white hover:bg-brand-tertiary"
                 type="submit"
               >
                 Login
