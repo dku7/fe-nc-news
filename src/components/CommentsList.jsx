@@ -35,6 +35,7 @@ const CommentsList = ({ article_id }) => {
       payload: comment_id,
     });
   };
+
   const handlePageChange = (step) => {
     const nextPage = comments.page + (step ?? 0);
 
@@ -55,6 +56,7 @@ const CommentsList = ({ article_id }) => {
       );
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => handlePageChange(1), []);
 
   return (

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState, useCallback } from "react";
 import { getTopics } from "../services/api";
 import Menu from "./Menu";
 import Header from "./Header";
@@ -13,39 +13,45 @@ const MainContainer = ({ children, searchParams, article }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [content, setContent] = useState();
 
-  const handleMenuOpen = () => {
+  const handleMenuOpen = useCallback(() => {
     if (!isSmallScreen) setIsMenuOpen(false);
     else setIsMenuOpen((isOpen) => !isOpen);
-  };
+  }, [isSmallScreen]);
 
-  const showMenuOnly = (
-    <div className="col-span-2 row-start-2 border-r border-gray-200">
-      <Menu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
-    </div>
+  const showMenuOnly = useMemo(
+    () => (
+      <div className="col-span-2 row-start-2 border-r border-gray-200">
+        <Menu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
+      </div>
+    ),
+    [handleMenuOpen, isMenuOpen],
   );
 
-  const showMenuAndContent = (
-    <>
-      <div className="col-span-1 row-start-2 hidden border-r border-gray-200 md:block">
-        <Menu handleMenuOpen={handleMenuOpen} />
-      </div>
+  const showMenuAndContent = useMemo(
+    () => (
+      <>
+        <div className="col-span-1 row-start-2 hidden border-r border-gray-200 md:block">
+          <Menu handleMenuOpen={handleMenuOpen} />
+        </div>
 
-      <div className="col-span-2 row-start-2 flex justify-center md:col-span-1">
-        {children}
-      </div>
-      <div className="col-span-2 row-start-3 border-t bg-gray-100">
-        <Footer />
-      </div>
-    </>
+        <div className="col-span-2 row-start-2 flex justify-center md:col-span-1">
+          {children}
+        </div>
+        <div className="col-span-2 row-start-3 border-t bg-gray-100">
+          <Footer />
+        </div>
+      </>
+    ),
+    [children, handleMenuOpen],
   );
 
   useEffect(() => {
     getTopics().then((topics) => setTopicsList(topics));
-  }, []);
+  }, [setTopicsList]);
 
   useEffect(() => {
     isMenuOpen ? setContent(showMenuOnly) : setContent(showMenuAndContent);
-  }, [isMenuOpen, searchParams, article]);
+  }, [isMenuOpen, searchParams, article, showMenuOnly, showMenuAndContent]);
 
   return (
     <div className="grid grid-cols-[200px_auto] grid-rows-[112px_auto_80px]">

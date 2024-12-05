@@ -21,7 +21,7 @@ const FeaturedCard = ({ articleSummary }) => {
         setIsLoading(false);
         setIsError(true);
       });
-  }, []);
+  }, [articleSummary]);
 
   if (isLoading) return <LoadingDisplay />;
   if (isError) return <p>Could not get featured article.</p>;
@@ -30,7 +30,7 @@ const FeaturedCard = ({ articleSummary }) => {
     <section>
       <header className="mb-4">
         <h2>
-          <span className="border-brand-tertiary border-b-2 text-2xl font-extrabold">
+          <span className="border-b-2 border-brand-tertiary text-2xl font-extrabold">
             Featured article
           </span>
         </h2>
