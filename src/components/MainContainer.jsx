@@ -54,7 +54,8 @@ const MainContainer = ({ children, searchParams, article }) => {
 
   useEffect(() => {
     getTopics().then((topics) => setTopicsList(topics));
-  }, [setTopicsList]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useLayoutEffect(() => {
     isMenuOpen ? setContent(showMenuOnly) : setContent(showMenuAndContent);
