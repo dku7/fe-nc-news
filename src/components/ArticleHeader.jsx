@@ -1,45 +1,37 @@
-import { useMemo } from "react";
 import { formatDateTime } from "../utils/utils";
 import { Link } from "react-router-dom";
 
 const ArticleHeader = ({ article, canClickTitle }) => {
-  const imgElement = useMemo(
-    () => (
-      <img
-        className="w-full rounded-t-md object-cover"
-        alt={`User posted image about ${article.topic}`}
-        src={article.article_img_url}
-      />
-    ),
-    [article],
+  const imgElement = (
+    <img
+      className="w-full rounded-t-md object-cover"
+      alt={`User posted image about ${article.topic}`}
+      src={article.article_img_url}
+    />
   );
 
-  const articleImage = useMemo(() => {
-    return canClickTitle ? (
-      <Link
-        aria-label={`Read more about ${article.title}`}
-        to={`/articles/${article.article_id}`}
-      >
-        {imgElement}
-      </Link>
-    ) : (
-      imgElement
-    );
-  }, [article, canClickTitle, imgElement]);
+  const articleImage = canClickTitle ? (
+    <Link
+      aria-label={`Read more about ${article.title}`}
+      to={`/articles/${article.article_id}`}
+    >
+      {imgElement}
+    </Link>
+  ) : (
+    imgElement
+  );
 
-  const articleTitle = useMemo(() => {
-    return canClickTitle ? (
-      <Link
-        aria-label={`Read more about ${article.title}`}
-        className="hover:text-brand-secondary hover:underline"
-        to={`/articles/${article.article_id}`}
-      >
-        {article.title}
-      </Link>
-    ) : (
-      article.title
-    );
-  }, [article, canClickTitle]);
+  const articleTitle = canClickTitle ? (
+    <Link
+      aria-label={`Read more about ${article.title}`}
+      className="hover:text-brand-secondary hover:underline"
+      to={`/articles/${article.article_id}`}
+    >
+      {article.title}
+    </Link>
+  ) : (
+    article.title
+  );
 
   return (
     <>
