@@ -1,4 +1,4 @@
-import { useContext, useMemo } from "react";
+import { useContext } from "react";
 import { VOTE_TYPE_ARTICLE } from "../utils/constants";
 import VotingBar from "./VotingBar";
 import { LoggedInUserContext } from "../contexts/LoggedInUser";
@@ -6,8 +6,8 @@ import { LoggedInUserContext } from "../contexts/LoggedInUser";
 const ArticleFooter = ({ article, votingEnabled }) => {
   const { loggedInUser } = useContext(LoggedInUserContext);
 
-  const votingArea = useMemo(() => {
-    return votingEnabled && loggedInUser?.username !== article.author ? (
+  const votingArea =
+    votingEnabled && loggedInUser?.username !== article.author ? (
       <VotingBar
         recordType={VOTE_TYPE_ARTICLE}
         recordId={article.article_id}
@@ -16,7 +16,6 @@ const ArticleFooter = ({ article, votingEnabled }) => {
     ) : (
       <span className="ml-4">{article.votes} votes</span>
     );
-  }, [article, loggedInUser, votingEnabled]);
 
   return (
     <div className="mb-4 flex align-baseline font-light sm:text-sm">

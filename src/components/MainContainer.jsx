@@ -1,7 +1,6 @@
 import {
   useContext,
   useEffect,
-  useMemo,
   useState,
   useCallback,
   useLayoutEffect,
@@ -25,17 +24,19 @@ const MainContainer = ({ children, searchParams, article }) => {
     else setIsMenuOpen((isOpen) => !isOpen);
   }, [isSmallScreen]);
 
-  const showMenuOnly = useMemo(
-    () => (
+  useEffect(() => {
+    getTopics().then((topics) => setTopicsList(topics));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useLayoutEffect(() => {
+    const showMenuOnly = (
       <div className="col-span-2 row-start-2 border-r border-gray-200">
         <Menu isMenuOpen={isMenuOpen} handleMenuOpen={handleMenuOpen} />
       </div>
-    ),
-    [handleMenuOpen, isMenuOpen],
-  );
+    );
 
-  const showMenuAndContent = useMemo(
-    () => (
+    const showMenuAndContent = (
       <>
         <div className="col-span-1 row-start-2 hidden border-r border-gray-200 md:block">
           <Menu handleMenuOpen={handleMenuOpen} />
@@ -48,18 +49,10 @@ const MainContainer = ({ children, searchParams, article }) => {
           <Footer />
         </div>
       </>
-    ),
-    [children, handleMenuOpen],
-  );
-
-  useEffect(() => {
-    getTopics().then((topics) => setTopicsList(topics));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useLayoutEffect(() => {
+    );
     isMenuOpen ? setContent(showMenuOnly) : setContent(showMenuAndContent);
-  }, [isMenuOpen, searchParams, article, showMenuOnly, showMenuAndContent]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMenuOpen, searchParams, article, children]);
 
   return (
     <div className="grid grid-cols-[200px_auto] grid-rows-[112px_auto_80px]">
