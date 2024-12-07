@@ -59,6 +59,8 @@ const CommentsList = ({ article_id }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => handlePageChange(1), []);
 
+  if (comments.isLoading) return <LoadingDisplay />;
+
   return (
     <>
       <section className="mt-10">
